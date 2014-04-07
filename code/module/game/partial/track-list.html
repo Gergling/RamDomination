@@ -1,0 +1,72 @@
+<div class="column-container track-list">
+	<div class="background">
+		<div class="left"></div>
+		<div class="right">
+			<div track-list-background></div>
+		</div>
+	</div>
+	<div class="foreground">
+		<div class="track-row">
+			<div class="column info">
+				<div class="track-label">Tracks</div>
+			</div>
+			<div class="column parts">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default">Zoom {{zoom.zoom}} Bars</button>
+					<button type="button" class="btn btn-default" data-ng-click="zoom.zoomOut()">
+						<span class="icon icon-zoom-out"></span>
+					</button>
+					<button type="button" class="btn btn-default" data-ng-click="zoom.zoomIn()" data-ng-class="{disabled: zoom.zoom<=zoom.min}">
+						<span class="icon icon-zoom-in"></span>
+					</button>
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+
+					<ul class="dropdown-menu" role="menu">
+						<li data-ng-repeat="preset in zoom.presets" data-ng-click="zoom.set(preset)"><a>{{preset}} Bars</a></li>
+					</ul>
+				</div>
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" data-ng-click="createPattern()" data-ng-class="{disabled:!select.on}">
+						Create Pattern
+					</button>
+					<button type="button" class="btn btn-default" data-ng-click="select.on=false" data-ng-class="{disabled:!select.on}">
+						Unselect
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="track-row" data-ng-repeat="track in tracks" data-ng-style="{top:(($index+1)*40)+'px'}">
+			<div class="column info">
+				<div class="track-label">{{track.label}}</div>
+			</div>
+			<div class="column parts">
+				<div class="track-label" data-ng-hide="track.patterns.length">Click and drag an area to add a pattern</div>
+				<div data-ng-show="track.patterns.length">{{track.patterns}}</div>
+				<div class="interaction-window" 
+					data-ng-mousedown="select.setStart(track.id, $event)" 
+					data-ng-mousemove="select.setChange($event)" 
+					data-ng-mouseup="select.setEnd()">
+					<div class="selection-window" 
+						data-ng-show="(select.changing || select.on) && track.id==select.trackId" 
+						data-ng-style="{left:select.start, width:select.width}" 
+					></div>
+				</div>
+			</div>
+		</div>
+		<div class="track-row no-border" data-ng-style="{top:((tracks.length+1)*40)+'px'}">
+			<div class="column new-track">
+				<div class="btn-group">
+					<button class="btn" data-ng-click="newTrack()">New Track</button>
+				</div>
+			</div>
+		</div>
+		<div class="track-row no-border bottom">
+			<div class="column parts">
+				<div style="bottom:0;" track-list-pattern-scrollbar></div>
+			</div>
+		</div>
+	</div>
+</div>

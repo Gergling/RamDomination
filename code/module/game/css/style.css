@@ -1,0 +1,39 @@
+.program-operation {
+	float: left;
+	width: 20px;
+	height: 20px;
+	background-color: lightgrey;
+	margin-left: 5px;
+}
+.program-operation:first-child {
+	margin-left: 0;
+}
+
+.game-panel {
+	border-style:solid;
+	border-width:1px;
+	border-top-color:#eee;
+	border-left-color:#ddd;
+	border-right-color:#bbb;
+	border-bottom-color:#999;
+}
+.game-column {float:left;margin-left:10px;}
+.game-column:first-child {margin-left:0;}
+
+.game-controls {width:200px;padding:10px;}
+
+.game-grid {position:relative;}
+.game-grid .grid-block {
+	position:absolute;
+	border:solid 1px black;
+}
+
+.game-grid .grid-block .ownership, 
+.game-grid .grid-block .program, 
+.game-grid .grid-block .unit {
+	position:absolute;
+	top:5px;
+	bottom:5px;
+	left:5px;
+	right:5px;
+}

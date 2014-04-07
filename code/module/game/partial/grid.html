@@ -1,0 +1,109 @@
+<div class="game-container">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="game-column game-panel game-controls">
+				This panel will contain selected program/unit controls
+				<h5>Selected</h5>
+				<table class="table table-bordered">
+					<tr>
+						<th>{{selectText.x.label}}</th>
+						<td>{{selectText.x.value}}</td>
+					</tr>
+					<tr>
+						<th>{{selectText.y.label}}</th>
+						<td>{{selectText.y.value}}</td>
+					</tr>
+					<tr>
+						<th>{{selectText.ownership.label}}</th>
+						<td><div style="width:20px;height:20px;background-color:{{selectText.ownership.value.colour}}"></div></td>
+					</tr>
+					<tr>
+						<th>{{selectText.structure.label}}</th>
+						<td></td>
+					</tr>
+					<tr data-ng-show="selectText.structure.value">
+						<td colspan="2">Structure abilities will go here.</td>
+					</tr>
+					<tr data-ng-show="selectText.structure.value">
+						<td colspan="2">Structure operations (assuming it belongs to the player) will go here.</td>
+					</tr>
+					<tr>
+						<th>{{selectText.unit.label}}</th>
+						<td>{{selectText.unit.value.label}}</td>
+					</tr>
+					<tr data-ng-show="selectText.unit.value">
+						<td colspan="2">
+							<div class="program-operation" 
+								data-ng-repeat="ability in selectText.unit.value.abilities" 
+								title="{{ability.label}}: {{ability.description}}"
+							>
+								
+							</div>
+						</td>
+					</tr>
+					<tr data-ng-show="selectText.unit.value">
+						<td colspan="2">
+							<div class="program-operation" 
+								data-ng-repeat="action in selectText.unit.value.actions" 
+								title="{{action.label}}"
+								data-ng-click="action.activate(selectedBlock, grid)"
+							>
+								
+							</div>
+						</td>
+					</tr>
+				</table>
+				<h5>Hovered Block</h5>
+				<table class="table table-bordered">
+					<tr>
+						<th>{{hoverText.x.label}}</th>
+						<td>{{hoverText.x.value}}</td>
+					</tr>
+					<tr>
+						<th>{{hoverText.y.label}}</th>
+						<td>{{hoverText.y.value}}</td>
+					</tr>
+					<tr>
+						<th>{{hoverText.ownership.label}}</th>
+						<td><div style="width:20px;height:20px;background-color:{{hoverText.ownership.value.colour}}"></div></td>
+					</tr>
+					<tr>
+						<th>{{hoverText.program.label}}</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>{{hoverText.unit.label}}</th>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			<div class="game-column game-panel game-grid" data-ng-style="{height:grid.height*blockSize, width:grid.width*blockSize}">
+				<div data-ng-repeat="row in grid.grid">
+					<div data-ng-repeat="block in row">
+						<div class="grid-block" 
+							data-ng-mouseover="hoverBlock(block.x,block.y)" 
+							data-ng-click="selectBlock(block.x,block.y)" 
+							data-ng-style="{
+								top:block.y*blockSize, 
+								left:block.x*blockSize,
+								width:blockSize,
+								height:blockSize,
+								'background-color':block.colour,
+								'border-color':block.borderColour
+							}"
+						>
+							<div><!-- express passable -->
+							</div>
+							<div class="ownership" data-ng-show="block.ownership" data-ng-style="{'background-color':block.ownership.colour}"><!-- express ownership -->
+								<div class="program"><!-- express program -->
+									<div class="unit"><!-- express unit -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

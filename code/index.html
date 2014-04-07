@@ -1,0 +1,86 @@
+<!doctype html>
+<!--<html data-ng-app="application">-->
+<html>
+	<head>
+		<title>RAM Domination</title>
+  		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+		<link type="text/css" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+		<link type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+		<!-- Modules -->
+		<link rel="stylesheet" type="text/css" href="module/application/css/style.css">
+		<link rel="stylesheet" type="text/css" href="module/game/css/style.css">
+
+		<!-- 3rd Party -->
+		<script type="text/javascript" src="vendor/requirejs/requirejs.2.1.8.js"></script>
+		<script type="text/javascript" src="vendor/quadrahedron/quadrahedron.js"></script>
+
+		<script type="text/javascript">
+			requirejs([
+				//"https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
+				"vendor/jquery/1.9.1/jquery.min.js",
+				"https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js",
+			], function() {
+				requirejs([
+					"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js",
+				], function() {
+					qh.loadLib([
+						//"https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
+						//"vendor/jquery/1.9.1/jquery.min.js",
+						//"https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"
+					]);
+					qh.app(function() {return document;});
+					qh.preloader(function() {return document.getElementById('preloader');});
+					qh.modules('module/modules.json');
+				});
+			});
+		</script>
+	</head>
+	<body style="">
+		<div data-ng-controller="application.controller.index">
+			<div class="background-white">
+				<div class="container">
+					<div id="navigation-container" class="background-white" style="padding-bottom:40px;">
+						<div class="row">
+							<div class="span12">
+								<div class="navbar">
+									<ul class="nav nav-tabs panel-area">
+										<li data-ng-repeat="item in navigation.tiers.primary.index.order" data-ng-class="{active: item.name == navigation.tiers.primary.active.name}">
+											<a href="#{{item.url}}" data-ng-bind-html-unsafe="item.label"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="span12">
+								<div class="navbar">
+									<ul class="nav nav-tabs panel-area">
+										<li data-ng-repeat="item in navigation.tiers.secondary.index.order" data-ng-class="{active: item.name == navigation.tiers.secondary.active.name}">
+											<a href="#{{item.url}}" data-ng-bind-html-unsafe="item.label"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span12">
+							<div id="preloader" style="
+								background-image:url(module/application/img/preloader.gif);
+								height: 400px;
+								background-repeat: no-repeat;
+								width: 400px;
+								margin: 0 auto;
+							"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container" data-ng-view>(Loading...)</div>
+		</div>
+	</body>
+</html>
