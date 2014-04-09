@@ -11,7 +11,8 @@ qh.component('game', function(ngm, qhm) {
 			// - Blocks which can be attacked.
 			// - Blocks which can be moved to.
 			this.instantiate = function() {};
-			this.setActions = function(unit) {};
+			this.setActions = function(unit) {
+			};
 			/*this.actions = {};
 			this.setAction = function(name) {
 				if (!this.actions[name]) {
@@ -23,6 +24,10 @@ qh.component('game', function(ngm, qhm) {
 			this.getAction = function(name) {
 				return this.actions[name];
 			};*/
+
+			// Run at the end of the player's turn.
+			this.endTurn = function() {
+			};
 		};
 		var abilities = {
 			options: {
@@ -61,6 +66,11 @@ qh.component('game', function(ngm, qhm) {
 				Claimer: function() {
 					this.description = "Claims the current square for the owner when moved there";
 					this.label = "Claimer";
+					// Needs a way to run this at the end of the player's turn.
+					this.endTurn = function() {
+						// Get the block associated with the unit associated with this ability.
+						// Change the ownership of the block.
+					};
 				},
 			},
 		};

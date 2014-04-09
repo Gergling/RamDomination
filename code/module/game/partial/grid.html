@@ -47,6 +47,7 @@
 								data-ng-repeat="action in selectText.unit.value.actions" 
 								title="{{action.label}}"
 								data-ng-click="action.activate(selectedBlock, grid)"
+								data-ng-class="{disabled:!action.enabled}"
 							>
 								
 							</div>
@@ -68,7 +69,7 @@
 						<td><div style="width:20px;height:20px;background-color:{{hoverText.ownership.value.colour}}"></div></td>
 					</tr>
 					<tr>
-						<th>{{hoverText.program.label}}</th>
+						<th>{{hoverText.structure.label}}</th>
 						<td></td>
 					</tr>
 					<tr>
@@ -82,7 +83,7 @@
 					<div data-ng-repeat="block in row">
 						<div class="grid-block" 
 							data-ng-mouseover="hoverBlock(block.x,block.y)" 
-							data-ng-click="selectBlock(block.x,block.y)" 
+							data-ng-click="clickBlock(block.x,block.y)" 
 							data-ng-style="{
 								top:block.y*blockSize, 
 								left:block.x*blockSize,
@@ -94,9 +95,10 @@
 						>
 							<div><!-- express passable -->
 							</div>
-							<div class="ownership" data-ng-show="block.ownership" data-ng-style="{'background-color':block.ownership.colour}"><!-- express ownership -->
-								<div class="program"><!-- express program -->
+							<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}"><!-- express ownership -->
+								<div class="structure"><!-- express structure -->
 									<div class="unit"><!-- express unit -->
+										{{block.unit.label}}
 									</div>
 								</div>
 							</div>

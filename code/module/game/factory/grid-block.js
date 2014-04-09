@@ -6,9 +6,12 @@ qh.component('game', function(ngm, qhm) {
 			this.x = x;
 			this.y = y;
 			this.ownership; // Somebody might own this block.
-			this.program; // There may be a structure on this block.
+			this.structure; // There may be a structure on this block.
 			this.unit; // There may be a unit on this block.
 			this.colour = "#ccc";
+
+			this.clickAction = function() {};
+
 			this.unselect = function() {
 				this.selected = false;
 				//this.borderColour = "initial";

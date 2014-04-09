@@ -10,10 +10,15 @@ qh.component('game', function(ngm, qhm) {
 			// - Blocks which can be attacked.
 			// - Blocks which can be moved to.
 			//this.instantiate = function() {};
-			this.click = function(x1,y1,x2,y2) {
-				
-			};
+			//this.click = function(x1,y1,x2,y2) {};
 			this.activate = function(block, map) {};
+			this.getOptions = function() {}; // List of blocks
+			this.complete = function(startBlock, endBlock) {};
+			this.cancel = function(block) {};
+			this.reset = function() {};
+			this.reset();
+			
+			this.enabled = true;
 		};
 		var actions = {
 			options: {
@@ -25,10 +30,17 @@ qh.component('game', function(ngm, qhm) {
 						unclaimed: 0,
 						enemy: 0,
 					};
+					this.travelled = 0;
+					// Need a count of times used.
+					// Actions need to be reset at the beginning of a turn.
 					this.activate = function(block, map) {
 						// User clicks move button to move unit. Several options come up for movement destinations.
 						// Highlight all surrounding blocks, dependent on ownership and distance from the given block.
 						//angular.forEach(map.grid, function(block2) {
+						grid.resetClick(map);
+						block.clickAction = function() {
+							scope.cancel(map);
+						};
 						grid.iterateBlocks(map.grid, function(block2) {
 							if (block!==block2) {
 								var speed = 0;
@@ -42,14 +54,36 @@ qh.component('game', function(ngm, qhm) {
 									// Has no owner
 									speed = scope.speed.unclaimed;
 								}
-								if (speed>0 && block2.getDistance(block)<=speed) {
+								if (speed>0 && block2.getDistance(block)<=(speed-scope.travelled)) {
 									block2.highlight();
-									//block2.clickAction = // pass scope into a function for this.
+									block2.clickAction = function() {
+										scope.complete(block, block2);
+										scope.cancel(map);
+									};
+									// Put blocks into list of options for AI use.
 								}
 							}
 						});
 					};
-					this.complete = function() {
+					this.getOptions = function() {
+					};
+					this.complete = function(startBlock, endBlock) {
+						this.travelled = startBlock.getDistance(endBlock);
+						endBlock.unit = startBlock.unit;
+						startBlock.unit = undefined;
+						this.enabled = false;
+						angular.forEach(this.speed, function(speed) {
+							if (this.travelled<=speed) {
+								this.enabled = true;
+							}
+						});
+					};
+					this.cancel = function(map) {
+						grid.unhighlight(map);
+						grid.resetClick(map);
+					};
+					this.reset = function() {
+						this.travelled = 0;
 					};
 				},
 			},

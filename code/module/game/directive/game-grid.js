@@ -29,8 +29,11 @@ qh.component('game', function(ngm, qhm) {
 					});
 				};
 				
-				$scope.selectBlock = function(x,y) {
+				$scope.clickBlock = function(x,y) {
+					var previousBlock = $scope.selectedBlock;
 					var block = $scope.grid.grid[x][y];
+					block.clickAction();
+					
 					$scope.selectedBlock = block;
 					angular.forEach($scope.selectText, function(text) {
 						text.value = block[text.name];

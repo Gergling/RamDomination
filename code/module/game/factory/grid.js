@@ -13,6 +13,16 @@ qh.component('game', function(ngm, qhm) {
 					});
 				});
 			},
+			unhighlight: function(map) {
+				obj.iterateBlocks(map.grid, function(block) {
+					block.unhighlight();
+				});
+			},
+			resetClick: function(map) {
+				obj.iterateBlocks(map.grid, function(block) {
+					block.clickAction = function() {};
+				});
+			},
 			unselect: function(map) {
 				obj.iterateBlocks(map.grid, function(block) {
 					block.unselect();

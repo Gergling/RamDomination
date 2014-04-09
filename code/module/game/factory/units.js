@@ -7,7 +7,7 @@ qh.component('game', function(ngm, qhm) {
 	function($scope, abilities, actions, inherit) {
 		var Unit = function() {
 			var scope = this;
-			this.block;
+			//this.block;
 			this.ownership;
 			this.integrity = 1;
 			this.label = "";
