@@ -43,6 +43,11 @@ qh.component('game', function(ngm, qhm) {
 					grid.select($scope.grid, x,y);
 				};
 				// Make select keep a block somewhere. Grid is already in scope.
+				
+				$scope.cycle = function() {
+					// Reset all the player abilities.
+					// Kick off all the AI moves.
+				};
 			}],
 		};
 	});
