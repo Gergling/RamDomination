@@ -40,7 +40,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr data-ng-show="selectText.unit.value">
+					<tr data-ng-show="selectText.unit.value && selectText.unit.value.team.hci">
 						<td colspan="2">
 							<div class="program-operation" 
 								data-ng-repeat="action in selectText.unit.value.actions" 

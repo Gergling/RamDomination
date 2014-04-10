@@ -12,6 +12,7 @@ qh.component('game', function(ngm, qhm) {
 			options: {
 				Human: function() {
 					// Keyboard/mouse controlled
+					this.hci = true;
 				},
 				Simple: function() {
 					// AI controlled. AI is simple.

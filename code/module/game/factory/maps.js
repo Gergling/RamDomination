@@ -41,6 +41,7 @@ qh.component('game', function(ngm, qhm) {
 							block.ownership = team;
 							block.structure;
 							block.unit = units.instantiate("Claimer");
+							block.unit.team = team;
 							grid.setBlock(mapGrid, block);
 						});
 
