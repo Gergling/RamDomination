@@ -31,6 +31,14 @@ qh.component('game', function(ngm, qhm) {
 			select: function(map, x,y) {
 				map.grid[x][y].select();
 			},
+			setBlock: function(grid, block, override) {
+				var x = block.x;
+				var y = block.y;
+				if (!grid[x]) {grid[x] = {};}
+				if (!grid[x][y] || override) {
+					grid[x][y] = block;
+				}
+			},
 		};
 		return obj;
 	}]);

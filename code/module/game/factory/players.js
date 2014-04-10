@@ -4,6 +4,9 @@ qh.component('game', function(ngm, qhm) {
 	function($scope) {
 		var Player = function() {
 			this.colour = "#ccc";
+			this.nextRound = function() {
+				
+			};
 		};
 		var players = {
 			options: {
@@ -29,11 +32,11 @@ qh.component('game', function(ngm, qhm) {
 		};
 		players.instantiate = function(name) {
 			var cls = players.options[name];
-			var obj = new cls;
 			var player = new Player;
 			cls.prototype = player;
 			cls.prototype.constructor = cls;
 			cls.prototype.parent = player;
+			var obj = new cls;
 			return obj;
 		};
 
