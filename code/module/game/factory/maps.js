@@ -11,10 +11,22 @@ qh.component('game', function(ngm, qhm) {
 			player.colour = "#f00";
 			return player;
 		};
+		var Map = function(properties) {
+			var scope = this;
+			angular.forEach(properties, function(property, name){
+				scope[name] = property;
+			});
+			this.applyHCITeams = function(fnc) {
+				angular.forEach(scope.hci, fnc);
+			};
+			this.runAI = function() {
+				
+			};
+		};
 		var obj = {
 			chosen: 0,
 			list: [
-				(function() {
+				new Map((function() {
 					var player = instantiateHumanPlayer();
 					var map = {
 						tier: 0, number: 0.1, label: "Bootstrap Camp", width: 8, height: 8,
@@ -26,10 +38,18 @@ qh.component('game', function(ngm, qhm) {
 								return p;
 							})(),
 						],
-						hci: [player],
+						hci: [],
+						ai:[],
 						// Also needs default win conditions - e.g. no player units or structures left, otherwise overwritten by map-specific options.
 						grid:{},
 					};
+					angular.forEach(map.teams, function(team) {
+						if (team.hci) {
+							map.hci.push(team);
+						} else {
+							map.ai.push(team);
+						}
+					});
 					angular.forEach([
 						new Block(0,0),
 						new Block(7,7),
@@ -46,7 +66,7 @@ qh.component('game', function(ngm, qhm) {
 					block.ownership = player;
 					grid.setBlock(map.grid, block);
 					return map;
-				})(),
+				})()),
 			],
 			getChosen: function() {
 				return obj.list[obj.chosen];
@@ -58,9 +78,6 @@ qh.component('game', function(ngm, qhm) {
 					grid.setBlock(map.grid, new Block(x,y));
 				}
 			}
-			map.applyHCITeams = function(fnc) {
-				angular.forEach(map.hci, fnc);
-			};
 		});
 		return obj;
 	}]);

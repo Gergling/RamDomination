@@ -73,6 +73,7 @@ qh.component('game', function(ngm, qhm) {
 					this.getOptions = function() {
 					};
 					this.complete = function(startBlock, endBlock) {
+						// This function will need to be split up into an animation and completion function.
 						this.travelled = startBlock.getDistance(endBlock);
 						endBlock.unit = startBlock.unit;
 						startBlock.unit = undefined;
