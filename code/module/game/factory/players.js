@@ -4,8 +4,16 @@ qh.component('game', function(ngm, qhm) {
 	function($scope) {
 		var Player = function() {
 			this.colour = "#ccc";
-			this.nextRound = function() {
-				
+			this.reset = function() {
+				angular.forEach(this.programs, function(program) {
+					program.resetAbilities();
+					program.resetActions();
+				});
+			};
+
+			this.programs = [];
+			this.addProgram = function(program) {
+				this.programs.push(program);
 			};
 		};
 		var players = {

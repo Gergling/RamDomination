@@ -41,10 +41,13 @@ qh.component('game', function(ngm, qhm) {
 						block.clickAction = function() {
 							scope.cancel(map);
 						};
+						var unit = block.unit;
 						grid.iterateBlocks(map.grid, function(block2) {
 							if (block!==block2) {
 								var speed = 0;
-								if (block2.ownership === block.ownership) {
+								// Also need to filter out blocks occupied by units, assuming unit does not reside on structural level.
+								
+								if (block2.ownership && block2.ownership === unit.team) {
 									// Owned by the same player
 									speed = scope.speed.claimed;
 								} else if (block2.ownership) {
@@ -54,13 +57,15 @@ qh.component('game', function(ngm, qhm) {
 									// Has no owner
 									speed = scope.speed.unclaimed;
 								}
-								if (speed>0 && block2.getDistance(block)<=(speed-scope.travelled)) {
-									block2.highlight();
-									block2.clickAction = function() {
-										scope.complete(block, block2);
-										scope.cancel(map);
-									};
-									// Put blocks into list of options for AI use.
+								if (speed>0) {
+									if (block2.getDistance(block)<=(speed-scope.travelled)) {
+										block2.highlight();
+										block2.clickAction = function() {
+											scope.complete(block, block2);
+											scope.cancel(map);
+										};
+										// Put blocks into list of options for AI use.
+									}
 								}
 							}
 						});
@@ -71,12 +76,7 @@ qh.component('game', function(ngm, qhm) {
 						this.travelled = startBlock.getDistance(endBlock);
 						endBlock.unit = startBlock.unit;
 						startBlock.unit = undefined;
-						this.enabled = false;
-						angular.forEach(this.speed, function(speed) {
-							if (this.travelled<=speed) {
-								this.enabled = true;
-							}
-						});
+						this.update();
 					};
 					this.cancel = function(map) {
 						grid.unhighlight(map);
@@ -84,6 +84,16 @@ qh.component('game', function(ngm, qhm) {
 					};
 					this.reset = function() {
 						this.travelled = 0;
+						this.update();
+					};
+					this.update = function() {
+						// Should be run on completion, reset or anytime when the secondary properties need updating.
+						this.enabled = false;
+						angular.forEach(this.speed, function(speed) {
+							if (scope.travelled<speed) {
+								scope.enabled = true;
+							}
+						});
 					};
 				},
 			},

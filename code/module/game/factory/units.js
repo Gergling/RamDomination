@@ -15,8 +15,9 @@ qh.component('game', function(ngm, qhm) {
 			this.addAbility = function(name) {
 				if (!this.abilities[name]) {
 					this.abilities[name] = abilities.instantiate(name);
+					this.abilities[name].unit = this;
 				}
-				this.abilities[name].instantiate();
+				//this.abilities[name].instantiate();
 				this.abilities[name].setActions(this);
 			};
 			this.actions = {};
@@ -37,6 +38,16 @@ qh.component('game', function(ngm, qhm) {
 			};
 			this.getAction = function(name) {
 				return this.actions[name];
+			};
+			
+			this.resetAbilities = function() {
+				angular.forEach(this.abilities, function(ability) {
+				});
+			};
+			this.resetActions = function() {
+				angular.forEach(this.actions, function(action) {
+					action.reset();
+				});
 			};
 
 			// Needs to be able to output a list of valid actions.

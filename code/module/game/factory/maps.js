@@ -26,27 +26,25 @@ qh.component('game', function(ngm, qhm) {
 								return p;
 							})(),
 						],
-						human: player,
+						hci: [player],
 						// Also needs default win conditions - e.g. no player units or structures left, otherwise overwritten by map-specific options.
+						grid:{},
 					};
-					map.grid = (function() {
-						var mapGrid = {
-						};
-
-						angular.forEach([
-							new Block(0,0),
-							new Block(7,7),
-						], function(block, idx) {
-							var team = map.teams[idx];
-							block.ownership = team;
-							block.structure;
-							block.unit = units.instantiate("Claimer");
-							block.unit.team = team;
-							grid.setBlock(mapGrid, block);
-						});
-
-						return mapGrid;
-					})();
+					angular.forEach([
+						new Block(0,0),
+						new Block(7,7),
+					], function(block, idx) {
+						var team = map.teams[idx];
+						block.ownership = team;
+						block.structure;
+						block.unit = units.instantiate("Claimer");
+						block.unit.team = team;
+						team.addProgram(block.unit);
+						grid.setBlock(map.grid, block);
+					});
+					var block = new Block(0,1);
+					block.ownership = player;
+					grid.setBlock(map.grid, block);
 					return map;
 				})(),
 			],
@@ -60,6 +58,9 @@ qh.component('game', function(ngm, qhm) {
 					grid.setBlock(map.grid, new Block(x,y));
 				}
 			}
+			map.applyHCITeams = function(fnc) {
+				angular.forEach(map.hci, fnc);
+			};
 		});
 		return obj;
 	}]);

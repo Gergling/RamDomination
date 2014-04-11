@@ -28,7 +28,10 @@
 					</tr>
 					<tr>
 						<th>{{selectText.unit.label}}</th>
-						<td>{{selectText.unit.value.label}}</td>
+						<td>
+							<div class="program-operation" style="background-color:{{selectText.unit.value.team.colour}}"></div>
+							{{selectText.unit.value.label}} 
+						</td>
 					</tr>
 					<tr data-ng-show="selectText.unit.value">
 						<td colspan="2">

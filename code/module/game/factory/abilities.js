@@ -10,7 +10,8 @@ qh.component('game', function(ngm, qhm) {
 			// Needs to be able to output a list of valid actions.
 			// - Blocks which can be attacked.
 			// - Blocks which can be moved to.
-			this.instantiate = function() {};
+			//this.instantiate = function() {};
+			this.unit;
 			this.setActions = function(unit) {
 			};
 			/*this.actions = {};
@@ -38,8 +39,8 @@ qh.component('game', function(ngm, qhm) {
 				Mobile: function() {
 					this.label = "Mobile";
 					this.description = "Can move into adjacent claimed blocks";
-					this.setActions = function(unit) {
-						var action = unit.setAction("Move");
+					this.setActions = function() {
+						var action = this.unit.setAction("Move");
 						action.speed.claimed++;
 					};
 				},
