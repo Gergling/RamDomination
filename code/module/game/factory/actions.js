@@ -30,6 +30,7 @@ qh.component('game', function(ngm, qhm) {
 						unclaimed: 0,
 						enemy: 0,
 					};
+					this.options = [];
 					this.travelled = 0;
 					// Need a count of times used.
 					// Actions need to be reset at the beginning of a turn.
@@ -65,21 +66,27 @@ qh.component('game', function(ngm, qhm) {
 											scope.cancel(map);
 										};
 										// Put blocks into list of options for AI use.
+										scope.options.push(block2);
 									}
 								}
 							}
 						});
 					};
 					this.getOptions = function() {
+						return this.options;
 					};
 					this.complete = function(startBlock, endBlock) {
 						// This function will need to be split up into an animation and completion function.
+						this.options = [];
 						this.travelled = startBlock.getDistance(endBlock);
-						endBlock.unit = startBlock.unit;
-						startBlock.unit = undefined;
+						//endBlock.unit = startBlock.unit;
+						//startBlock.unit = undefined;
+						endBlock.setUnit(startBlock.unit);
+						startBlock.clearUnit();
 						this.update();
 					};
 					this.cancel = function(map) {
+						this.options = [];
 						grid.unhighlight(map);
 						grid.resetClick(map);
 					};

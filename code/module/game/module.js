@@ -7,6 +7,7 @@ qh.setModule("game", {
 		"players",
 		"abilities",
 		"actions",
+		"ai",
 	],
 	directive: [
 		"game-grid",

@@ -1,7 +1,8 @@
 qh.component('game', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'players').getFullName(), [
 		"$rootScope", 
-	function($scope) {
+		"game.factory.ai", 
+	function($scope, ai) {
 		var Player = function() {
 			this.colour = "#ccc";
 			this.reset = function() {
@@ -15,6 +16,7 @@ qh.component('game', function(ngm, qhm) {
 			this.addProgram = function(program) {
 				this.programs.push(program);
 			};
+			this.run = function() {};
 		};
 		var players = {
 			options: {
@@ -24,6 +26,19 @@ qh.component('game', function(ngm, qhm) {
 				},
 				Simple: function() {
 					// AI controlled. AI is simple.
+					this.run = function() {
+						angular.forEach(this.programs, function(program) {
+							try {
+								var moveAction = program.getAction("Move");
+								moveAction.activate(program.block, program.block.map);
+								var destination = ai.getRandomDestination(moveAction);
+								moveAction.complete(program.block, destination);
+								moveAction.cancel(program.block.map);
+							} catch(e) {
+								// If it doesn't exist, we can't move the unit. No need to take any action.
+							}
+						});
+					};
 					// Claimers head in whichever direction they have as an option first. Unclaimed blocks are priority. 
 					// If no unclaimed blocks exist, do nothing.
 					// Offensive units always head straight for enemy.

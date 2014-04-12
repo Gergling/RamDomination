@@ -9,6 +9,7 @@ qh.component('game', function(ngm, qhm) {
 			var scope = this;
 			//this.block;
 			this.ownership;
+			this.block;
 			this.integrity = 1;
 			this.label = "";
 			this.abilities = {};
@@ -37,7 +38,11 @@ qh.component('game', function(ngm, qhm) {
 				});
 			};
 			this.getAction = function(name) {
-				return this.actions[name];
+				if (this.actions[name]) {
+					return this.actions[name];
+				} else {
+					throw "Unit::getAction in game.factory.units: "+name+" is not an available action for this unit.";
+				}
 			};
 			
 			this.resetAbilities = function() {

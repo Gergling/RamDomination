@@ -9,6 +9,7 @@ qh.component('game', function(ngm, qhm) {
 			this.structure; // There may be a structure on this block.
 			this.unit; // There may be a unit on this block.
 			this.colour = "#ccc";
+			this.map;
 
 			this.clickAction = function() {};
 
@@ -43,6 +44,15 @@ qh.component('game', function(ngm, qhm) {
 					this.borderColour = "#ffd";
 				}
 			};
+			
+			this.setUnit = function(unit) {
+				this.unit = unit;
+				unit.block = this;
+			};
+			this.clearUnit = function() {
+				this.unit = undefined;
+			};
+			
 			this.update();
 			
 			this.getDistance = function(block) {

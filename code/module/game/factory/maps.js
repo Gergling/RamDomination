@@ -13,22 +13,46 @@ qh.component('game', function(ngm, qhm) {
 		};
 		var Map = function(properties) {
 			var scope = this;
+			this.grid = {};
+			this.hci = [];
+			this.ai = [];
+			this.teams = [];
+			this.tier = -1;
+			this.number = 0;
+			this.label = "(Uncharted Territory)";
+			this.width = 0;
+			this.height = 0;
+
 			angular.forEach(properties, function(property, name){
 				scope[name] = property;
 			});
+			angular.forEach(this.teams, function(team) {
+				if (team.hci) {
+					scope.hci.push(team);
+				} else {
+					scope.ai.push(team);
+				}
+			});
+
 			this.applyHCITeams = function(fnc) {
 				angular.forEach(scope.hci, fnc);
 			};
 			this.runAI = function() {
-				
+				angular.forEach(scope.ai, function(team) {
+					team.run();
+				});
+			};
+			this.setBlock = function(block, override) {
+				grid.setBlock(this.grid, block, override);
+				block.map = this;
 			};
 		};
 		var obj = {
 			chosen: 0,
 			list: [
-				new Map((function() {
+				(function() {
 					var player = instantiateHumanPlayer();
-					var map = {
+					var map = new Map({
 						tier: 0, number: 0.1, label: "Bootstrap Camp", width: 8, height: 8,
 						teams: [
 							player,
@@ -38,17 +62,7 @@ qh.component('game', function(ngm, qhm) {
 								return p;
 							})(),
 						],
-						hci: [],
-						ai:[],
 						// Also needs default win conditions - e.g. no player units or structures left, otherwise overwritten by map-specific options.
-						grid:{},
-					};
-					angular.forEach(map.teams, function(team) {
-						if (team.hci) {
-							map.hci.push(team);
-						} else {
-							map.ai.push(team);
-						}
 					});
 					angular.forEach([
 						new Block(0,0),
@@ -57,16 +71,17 @@ qh.component('game', function(ngm, qhm) {
 						var team = map.teams[idx];
 						block.ownership = team;
 						block.structure;
-						block.unit = units.instantiate("Claimer");
+						block.setUnit(units.instantiate("Claimer"));
 						block.unit.team = team;
 						team.addProgram(block.unit);
-						grid.setBlock(map.grid, block);
+						map.setBlock(block);
 					});
 					var block = new Block(0,1);
 					block.ownership = player;
-					grid.setBlock(map.grid, block);
+					map.setBlock(block);
+
 					return map;
-				})()),
+				})(),
 			],
 			getChosen: function() {
 				return obj.list[obj.chosen];
@@ -75,7 +90,7 @@ qh.component('game', function(ngm, qhm) {
 		angular.forEach(obj.list, function(map) {
 			for(var x=0;x<map.width;x++) {
 				for(var y=0;y<map.height;y++) {
-					grid.setBlock(map.grid, new Block(x,y));
+					map.setBlock(new Block(x,y));
 				}
 			}
 		});
