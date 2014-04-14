@@ -41,6 +41,9 @@ qh.component('game', function(ngm, qhm) {
 				angular.forEach(scope.ai, function(team) {
 					team.run();
 				});
+				angular.forEach(scope.ai, function(team) {
+					team.reset();
+				});
 			};
 			this.setBlock = function(block, override) {
 				grid.setBlock(this.grid, block, override);

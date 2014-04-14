@@ -32,10 +32,13 @@ qh.component('game', function(ngm, qhm) {
 								var moveAction = program.getAction("Move");
 								moveAction.activate(program.block, program.block.map);
 								var destination = ai.getRandomDestination(moveAction);
-								moveAction.complete(program.block, destination);
-								moveAction.cancel(program.block.map);
+								if (destination) {
+									moveAction.complete(program.block, destination);
+									moveAction.cancel(program.block.map);
+								}
 							} catch(e) {
 								// If it doesn't exist, we can't move the unit. No need to take any action.
+								throw e;
 							}
 						});
 					};

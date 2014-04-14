@@ -6,6 +6,7 @@ qh.component('game', function(ngm, qhm) {
 			getRandomDestination: function(moveAction) {
 				var blocks = moveAction.getOptions();
 				var idx = Math.floor(Math.random()*blocks.length);
+				console.log(blocks, idx);
 				return blocks[idx];
 			},
 		};
