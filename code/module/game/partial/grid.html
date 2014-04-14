@@ -64,7 +64,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="game-column game-panel game-grid" data-ng-style="{height:grid.height*blockSize, width:grid.width*blockSize}">
+			<div class="game-column game-panel game-grid" style="height:{{dimensions.height}}px;width:{{dimensions.width}}px;">
 				<div data-ng-repeat="row in grid.grid">
 					<div data-ng-repeat="block in row">
 						<div class="grid-block" 
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="game-column game-panel">
+			<div class="game-column game-panel game-controls">
 				<h5>Hovered Block</h5>
 				<table class="table table-bordered">
 					<tr>

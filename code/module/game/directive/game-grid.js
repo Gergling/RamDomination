@@ -11,6 +11,10 @@ qh.component('game', function(ngm, qhm) {
 			function($scope, maps, grid) {
 				$scope.blockSize = 50;
 				$scope.grid = maps.getChosen();
+				$scope.dimensions = {
+					width: $scope.grid.width * $scope.blockSize,
+					height: $scope.grid.height * $scope.blockSize,
+				};
 				
 				$scope.selectText = {
 					x:{name:"x", label:"X"},
