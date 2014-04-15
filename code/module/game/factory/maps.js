@@ -39,9 +39,8 @@ qh.component('game', function(ngm, qhm) {
 			};
 			this.runAI = function() {
 				angular.forEach(scope.ai, function(team) {
-					team.run();
-				});
-				angular.forEach(scope.ai, function(team) {
+					team.runAI();
+					team.runAbilities();
 					team.reset();
 				});
 			};

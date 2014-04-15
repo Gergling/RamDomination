@@ -51,6 +51,7 @@ qh.component('game', function(ngm, qhm) {
 				$scope.cycle = function() {
 					// Reset all the player abilities.
 					$scope.grid.applyHCITeams(function(team) {
+						team.runAbilities();
 						team.reset();
 					});
 					// Kick off all the AI moves.

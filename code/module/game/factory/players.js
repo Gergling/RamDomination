@@ -11,12 +11,17 @@ qh.component('game', function(ngm, qhm) {
 					program.resetActions();
 				});
 			};
+			this.runAbilities = function() {
+				angular.forEach(this.programs, function(program) {
+					program.runAbilities();
+				});
+			};
 
 			this.programs = [];
 			this.addProgram = function(program) {
 				this.programs.push(program);
 			};
-			this.run = function() {};
+			this.runAI = function() {};
 		};
 		var players = {
 			options: {
@@ -26,7 +31,7 @@ qh.component('game', function(ngm, qhm) {
 				},
 				Simple: function() {
 					// AI controlled. AI is simple.
-					this.run = function() {
+					this.runAI = function() {
 						angular.forEach(this.programs, function(program) {
 							try {
 								var moveAction = program.getAction("Move");

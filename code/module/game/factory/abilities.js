@@ -29,6 +29,8 @@ qh.component('game', function(ngm, qhm) {
 			// Run at the end of the player's turn.
 			this.endTurn = function() {
 			};
+			this.run = function() {
+			};
 		};
 		var abilities = {
 			options: {
@@ -68,7 +70,8 @@ qh.component('game', function(ngm, qhm) {
 					this.description = "Claims the current square for the owner when moved there";
 					this.label = "Claimer";
 					// Needs a way to run this at the end of the player's turn.
-					this.endTurn = function() {
+					this.run = function() {
+						console.log(this.unit.block.ownership = this.unit.team);
 						// Get the block associated with the unit associated with this ability.
 						// Change the ownership of the block.
 					};

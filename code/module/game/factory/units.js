@@ -49,6 +49,11 @@ qh.component('game', function(ngm, qhm) {
 				angular.forEach(this.abilities, function(ability) {
 				});
 			};
+			this.runAbilities = function() {
+				angular.forEach(this.abilities, function(ability) {
+					ability.run();
+				});
+			};
 			this.resetActions = function() {
 				angular.forEach(this.actions, function(action) {
 					action.reset();
