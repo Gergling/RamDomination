@@ -71,7 +71,7 @@ qh.component('game', function(ngm, qhm) {
 					this.label = "Claimer";
 					// Needs a way to run this at the end of the player's turn.
 					this.run = function() {
-						console.log(this.unit.block.ownership = this.unit.team);
+						this.unit.block.ownership = this.unit.team;
 						// Get the block associated with the unit associated with this ability.
 						// Change the ownership of the block.
 					};
