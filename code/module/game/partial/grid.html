@@ -70,14 +70,14 @@
 						<div class="grid-block" 
 							data-ng-mouseover="hoverBlock(block.x,block.y)" 
 							data-ng-click="clickBlock(block.x,block.y)" 
-							data-ng-style="{
-								top:block.y*blockSize, 
-								left:block.x*blockSize,
-								width:blockSize,
-								height:blockSize,
-								'background-color':block.colour,
-								'border-color':block.borderColour
-							}"
+							style="
+								top:{{block.y*blockSize}}px;
+								left:{{block.x*blockSize}}px;
+								width:{{blockSize}}px;
+								height:{{blockSize}}px;
+								background-color:{{block.colour}};
+								border-color:{{block.borderColour}};
+							"
 						>
 							<div><!-- express passable -->
 							</div>
