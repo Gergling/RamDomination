@@ -5,7 +5,8 @@ qh.component('game', function(ngm, qhm) {
 		"game.factory.players", 
 		"game.factory.units", 
 		"game.factory.grid", 
-	function($scope, Block, players, units, grid) {
+		"game.factory.help-window", 
+	function($scope, Block, players, units, grid, help) {
 		var instantiateHumanPlayer = function() {
 			var player = players.instantiate("Human");
 			player.colour = "#f00";
@@ -22,6 +23,16 @@ qh.component('game', function(ngm, qhm) {
 			this.label = "(Uncharted Territory)";
 			this.width = 0;
 			this.height = 0;
+			this.evaluateVictory = function() {
+				// By default, victory is established by being the last man standing.
+				angular.forEach(scope.teams, function(team) {
+					// Assign victory
+					// Everyone else gets defeat
+				});
+			};
+
+			this.objectives = {};
+			this.intro = [];
 
 			angular.forEach(properties, function(property, name){
 				scope[name] = property;
@@ -48,6 +59,14 @@ qh.component('game', function(ngm, qhm) {
 				grid.setBlock(this.grid, block, override);
 				block.map = this;
 			};
+			this.iterateBlocks = function(fnc) {
+				return grid.iterateBlocks(this.grid, fnc);
+			};
+			this.startRound = function() {
+				angular.forEach(scope.teams, function(team) {
+					team.resolveResources(scope);
+				});
+			};
 		};
 		var obj = {
 			chosen: 0,
@@ -55,7 +74,7 @@ qh.component('game', function(ngm, qhm) {
 				(function() {
 					var player = instantiateHumanPlayer();
 					var map = new Map({
-						tier: 0, number: 0.1, label: "Bootstrap Camp", width: 8, height: 8,
+						tier: 0, number: 1, label: "Bootstrap Camp", width: 8, height: 8,
 						teams: [
 							player,
 							(function() {
@@ -64,8 +83,30 @@ qh.component('game', function(ngm, qhm) {
 								return p;
 							})(),
 						],
-						// Also needs default win conditions - e.g. no player units or structures left, otherwise overwritten by map-specific options.
+						evaluateVictory: function() {
+							// Player needs to claim 5 tiles and obtain 50 memory.
+							var totalBlocks = 5;
+							var totalMemory = 50;
+							scope.objectives.blocks = "";
+							scope.objectives.resource = "";
+							angular.forEach(scope.hci, function(team) {
+								scope.objectives.blocks = "Blocks: "+team.blocks.length+"/"+totalBlocks;
+								scope.objectives.resource = "Calculations: "+team.resource+"/"+totalMemory;
+							});
+						},
 					});
+					map.intro.push(new help.HelpWindow({
+						content: {
+							header: map.number+": "+map.label,
+							body:"Your first exercise is going to be under controlled conditions. This is so that I can confirm you are reasonably operational. I can wipe the drive when you're done.",
+						},
+					}));
+					map.intro.push(new help.HelpWindow({
+						content: {
+							header: map.number+": "+map.label,
+							body:"And here is another page of stuff.",
+						},
+					}));
 					angular.forEach([
 						new Block(0,0),
 						new Block(7,7),
@@ -95,6 +136,23 @@ qh.component('game', function(ngm, qhm) {
 					map.setBlock(new Block(x,y));
 				}
 			}
+			var previous;
+			angular.forEach(map.intro, function(helpWindow, key) {
+				var last = (key*1)+1>=map.intro.length;
+				var helpKey = map.tier+map.number+key;
+				if (previous) {
+					helpWindow.previous = previous.obj;
+					previous.obj.next = helpWindow;
+				} else {
+					
+				}
+				if (last) {
+					helpWindow.close = true;
+				}
+
+				help.list[helpKey] = helpWindow;
+				previous = {obj:helpWindow, key:helpKey};
+			});
 		});
 		return obj;
 	}]);
