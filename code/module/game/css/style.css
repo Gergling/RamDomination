@@ -9,6 +9,22 @@
 	margin-left: 0;
 }
 
+#body-curtain {
+	display:none;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	background-color:black;
+}
+#body-curtain.dim {
+	opacity:0.5;
+}
+
+.help-content {padding:20px;}
+.help-include {margin-bottom:20px;}
+
 .game-panel {
 	border-style:solid;
 	border-width:1px;

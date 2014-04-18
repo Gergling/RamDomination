@@ -8,8 +8,10 @@ qh.setModule("game", {
 		"abilities",
 		"actions",
 		"ai",
+		"help-window",
 	],
 	directive: [
 		"game-grid",
+		"help-window",
 	],
 });

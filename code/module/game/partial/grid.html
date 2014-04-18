@@ -1,8 +1,37 @@
 <div class="game-container">
 	<div class="row-fluid">
 		<div class="span12">
+			<!--<div help-window data-idx='tutorial-start'></div>-->
+			<div help-window data-level='true'></div>
 			<div class="game-column game-panel game-controls">
-				<h5>Selected</h5>
+				<div class="unit-selection">
+					<div class="row-fluid">
+						<div class="span12">
+							<h5>Selected</h5>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">X</div>
+						<div class="span6">{{selectedBlock.x}}</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">Y</div>
+						<div class="span6">{{selectedBlock.y}}</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">Ownership</div>
+						<div class="span6">
+							<div style="width:20px;height:20px;background-color:{{selectedBlock.ownership.colour}}"></div>
+						</div>
+					</div>
+					<div class="row-fluid" data-ng-show="selectedBlock.ownership.hci">
+						<div class="span6">Memory</div>
+						<div class="span6">
+							{{selectedBlock.ownership.memory}}
+						</div>
+					</div>
+					
+				</div>
 				<table class="table table-bordered">
 					<tr>
 						<th>{{selectText.x.label}}</th>
