@@ -21,7 +21,21 @@ qh.component('game', function(ngm, qhm) {
 			this.addProgram = function(program) {
 				this.programs.push(program);
 			};
-			this.runAI = function() {};
+			this.runAI = function() {
+			};
+
+			this.blocks = [];
+
+			this.resource = 0;
+			this.update = function(map) {
+				scope.blocks = [];
+				map.iterateBlocks(function(block, x, y) {
+					if (block.ownership===scope) {
+						scope.blocks.push(block);
+						scope.resource++;
+					}
+				});
+			};
 		};
 		var players = {
 			options: {
