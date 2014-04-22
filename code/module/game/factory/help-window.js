@@ -6,7 +6,7 @@ qh.component('game', function(ngm, qhm) {
 			var scope = this;
 			this.include = "";
 			this.openFunctions = [];
-			this.close = false;
+			this.close = true;
 			this.navigate = false;
 			this.progress = false;
 			this.content = {
@@ -19,12 +19,12 @@ qh.component('game', function(ngm, qhm) {
 					fnc();
 				});
 			};
-			this.close = function() {
+			/*this.close = function() {
 				obj.curtainFadeOut(function() {
 					
 				});
 				$element.fadeOut(400, function() {});
-			};
+			};*/
 				/*$scope.previous = function() {
 					bodyCurtain.fadeOut(400, function() {
 						bodyCurtain.removeClass('dim');
@@ -38,23 +38,27 @@ qh.component('game', function(ngm, qhm) {
 					$element.fadeOut(400, function() {});
 				};*/
 
-			this.assignControls = function(open, $element) {
+			/*this.assignControls = function(open, $element) {
 				this.openFunctions.push(open);
 				this.$element = $element;
-			};
+			};*/
 			angular.forEach(options, function(option, name) {
 				scope[name] = option;
 			});
 		};
 		var partialPath = [qhm.getPath(), "partial", "help-messages"].join("/");
 		var obj = {
+			chosen: undefined,
+			setChosen: function(helpWindow) {
+				obj.chosen = helpWindow;
+			},
 			list: {
 				victory: new HelpWindow({
 					include: partialPath+"/victory.html",
 					progress: true,
 				}),
 			},
-			assignControls: function(idx, open, $element) {
+			/*assignControls: function(idx, open, $element) {
 				var helpWindow = obj.list[idx];
 				if (helpWindow) {
 					//helpWindow.openFunctions.push(open);
@@ -64,7 +68,7 @@ qh.component('game', function(ngm, qhm) {
 				} else {
 					throw "game.factory.helpWindow.assignControls: No HelpWindow for idx '"+idx+"'.";
 				}
-			},
+			},*/
 			getBodyCurtain: function() {
 				var curtainId = 'body-curtain';
 				if (jQuery('#'+curtainId).length===0) {
@@ -85,6 +89,7 @@ qh.component('game', function(ngm, qhm) {
 			},
 			HelpWindow: HelpWindow,
 		};
+		obj.chosen = obj.list.victory;
 		var bodyCurtain = obj.getBodyCurtain();
 		bodyCurtain.removeClass('dim');
 

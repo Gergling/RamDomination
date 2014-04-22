@@ -2,7 +2,9 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<!--<div help-window data-idx='tutorial-start'></div>-->
-			<div help-window data-level='true'></div>
+			<!-- Set up an argument that makes the help window display whatever is set in the factory -->
+			<!--<div help-window data-level='true'></div>-->
+			<div help-window data-open='true'></div>
 			<div class="game-column game-panel game-controls">
 				<div class="unit-selection">
 					<div class="row-fluid">
@@ -122,6 +124,10 @@
 				</div>
 			</div>
 			<div class="game-column game-panel game-controls">
+				<h5>Objectives</h5>
+				<ul>
+					<li data-ng-repeat="objective in grid.objectives">{{objective}}</li>
+				</ul>
 				<h5>Hovered Block</h5>
 				<table class="table table-bordered">
 					<tr>
@@ -142,7 +148,7 @@
 					</tr>
 					<tr>
 						<th>{{hoverText.unit.label}}</th>
-						<td></td>
+						<td>{{hoverText.unit.value.label}}</td>
 					</tr>
 				</table>
 			</div>

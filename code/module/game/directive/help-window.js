@@ -21,8 +21,25 @@ qh.component('game', function(ngm, qhm) {
 					help.curtainFadeIn();
 					$element.fadeIn(400);
 				};
+				help.fadeIn = fadeIn;
+				//help.chosen.assignControls(fadeIn, $element);
+				help.chosen.openFunctions.push(help.fadeIn);
+				$scope.help = help;
 
-				$scope.$watch('$attrs.idx', function() {
+
+				$scope.$watch('$attrs.open', function() {
+					if ($attrs.open) {
+						$scope.help.chosen.open();
+					}
+				});
+				/*$scope.$watch('$attrs.chosen', function() {
+					if (help.chosen) {
+						help.chosen.assignControls(fadeIn, $element);
+						$scope.helpWindow = help.chosen;
+					}
+				});*/
+
+				/*$scope.$watch('$attrs.idx', function() {
 					if ($attrs.idx) {
 						var helpWindow = help.assignControls($attrs.idx, function() {
 							help.curtainFadeIn();
@@ -43,7 +60,7 @@ qh.component('game', function(ngm, qhm) {
 					
 					// Testing:
 					$scope.helpWindow.open();
-				});
+				});*/
 				
 				$scope.close = function() {
 					bodyCurtain.fadeOut(400, function() {
@@ -52,10 +69,11 @@ qh.component('game', function(ngm, qhm) {
 					$element.fadeOut(400, function() {});
 				};
 				$scope.previous = function() {
-					$scope.helpWindow = $scope.helpWindow.previous;
+					//$scope.helpWindow = $scope.helpWindow.previous;
+					$scope.help.chosen = $scope.help.chosen.previous;
 				};
 				$scope.next = function() {
-					$scope.helpWindow = $scope.helpWindow.next;
+					$scope.help.chosen = $scope.help.chosen.next;
 				};
 			}],
 		};

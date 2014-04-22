@@ -1,20 +1,20 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12 help-content">
-			<div class="help-head"><h3>{{helpWindow.content.header}}</h3></div>
-			<div class="help-body"><p>{{helpWindow.content.body}}</p></div>
-			<div class="help-include" data-ng-include="helpWindow.include"></div>
-			<div class="btn-group">
+			<div class="help-head"><h3>{{help.chosen.content.header}}</h3></div>
+			<div class="help-body"><p>{{help.chosen.content.body}}</p></div>
+			<div class="help-include" data-ng-include="help.chosen.include"></div>
+			<div class="btn-group" data-ng-show="help.chosen.previous || help.chosen.next">
 				<button class="btn">&nbsp;</button>
-				<button data-ng-show="helpWindow.previous" class="btn" data-ng-click="previous()">Previous</button>
-				<button data-ng-show="helpWindow.next" class="btn" data-ng-click="next()">Next</button>
+				<button data-ng-show="help.chosen.previous" class="btn" data-ng-click="previous()">Previous</button>
+				<button data-ng-show="help.chosen.next" class="btn" data-ng-click="next()">Next</button>
 				<button class="btn">&nbsp;</button>
 			</div>
-			<div class="btn-group" data-ng-show="helpWindow.progress">
+			<div class="btn-group" data-ng-show="help.chosen.progress">
 				<button class="btn" data-ng-click="main()">Main Menu</button>
 				<button class="btn" data-ng-click="progress()">Next Mission</button>
 			</div>
-			<div class="btn-group" data-ng-show="helpWindow.close">
+			<div class="btn-group" data-ng-show="help.chosen.close">
 				<button class="btn" data-ng-click="close()">Close</button>
 			</div>
 		</div>

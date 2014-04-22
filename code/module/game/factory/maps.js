@@ -37,12 +37,14 @@ qh.component('game', function(ngm, qhm) {
 			angular.forEach(properties, function(property, name){
 				scope[name] = property;
 			});
-			angular.forEach(this.teams, function(team) {
+			angular.forEach(this.teams, function(team, idx) {
 				if (team.hci) {
 					scope.hci.push(team);
 				} else {
 					scope.ai.push(team);
 				}
+				team.map = scope;
+				team.idx = idx;
 			});
 
 			this.applyHCITeams = function(fnc) {
@@ -62,16 +64,39 @@ qh.component('game', function(ngm, qhm) {
 			this.iterateBlocks = function(fnc) {
 				return grid.iterateBlocks(this.grid, fnc);
 			};
-			this.startRound = function() {
+			this.resolveResources = function() {
 				angular.forEach(scope.teams, function(team) {
 					team.resolveResources(scope);
 				});
 			};
+			
+			this.victoryMessage = new help.HelpWindow({
+				content: {header: "Victory",},
+			});
+			this.defeatMessage = new help.HelpWindow({
+				content: {
+					header: "Defeat",
+					body:"You've been defeated somehow.",
+				},
+			});
+			this.setVictory = function() {
+				help.setChosen(this.victoryMessage);
+				this.victoryMessage.openFunctions.push(help.fadeIn);
+				//this.victoryMessage.openFunctions.push(function() {console.log('oi');});
+				this.victoryMessage.open();
+			};
+			this.setDefeat = function(explanation) {
+				this.defeatMessage.content.body = explanation;
+				help.setChosen(this.defeatMessage);
+				this.defeatMessage.openFunctions.push(help.fadeIn);
+				this.defeatMessage.open();
+			};
 		};
 		var obj = {
 			chosen: 0,
-			list: [
-				(function() {
+			list: [],
+			generators: [
+				function() {
 					var player = instantiateHumanPlayer();
 					var map = new Map({
 						tier: 0, number: 1, label: "Bootstrap Camp", width: 8, height: 8,
@@ -84,15 +109,26 @@ qh.component('game', function(ngm, qhm) {
 							})(),
 						],
 						evaluateVictory: function() {
+							var scope = this;
 							// Player needs to claim 5 tiles and obtain 50 memory.
-							var totalBlocks = 5;
-							var totalMemory = 50;
+							var totalBlocks = 3;
+							var totalMemory = 3;
 							scope.objectives.blocks = "";
 							scope.objectives.resource = "";
-							angular.forEach(scope.hci, function(team) {
+							var team = scope.hci[0];
+							//angular.forEach(scope.hci, function(team) {
 								scope.objectives.blocks = "Blocks: "+team.blocks.length+"/"+totalBlocks;
 								scope.objectives.resource = "Calculations: "+team.resource+"/"+totalMemory;
-							});
+							//});
+							// Victory if enough blocks are claimed.
+							if (team.blocks.length>=totalBlocks && team.resource>=totalMemory) {
+								scope.setVictory();
+							}
+							// Defeat needs to be set
+							var ai = scope.ai[0];
+							if (ai.blocks.length>(scope.width*scope.height)-totalBlocks) {
+								scope.setDefeat("The AI has claimed too many blocks to make victory possible. Wipe and start again.");
+							}
 						},
 					});
 					map.intro.push(new help.HelpWindow({
@@ -124,12 +160,15 @@ qh.component('game', function(ngm, qhm) {
 					map.setBlock(block);
 
 					return map;
-				})(),
+				},
 			],
 			getChosen: function() {
 				return obj.list[obj.chosen];
 			},
 		};
+		angular.forEach(obj.generators, function(generator) {
+			obj.list.push(generator());
+		});
 		angular.forEach(obj.list, function(map) {
 			for(var x=0;x<map.width;x++) {
 				for(var y=0;y<map.height;y++) {
@@ -146,13 +185,16 @@ qh.component('game', function(ngm, qhm) {
 				} else {
 					
 				}
-				if (last) {
-					helpWindow.close = true;
-				}
+				helpWindow.close = true;
 
-				help.list[helpKey] = helpWindow;
+				//help.list[helpKey] = helpWindow;
 				previous = {obj:helpWindow, key:helpKey};
 			});
+			help.setChosen(map.intro[0]);
+			angular.forEach(map.teams, function(team) {
+				team.update();
+			});
+			map.evaluateVictory();
 		});
 		return obj;
 	}]);

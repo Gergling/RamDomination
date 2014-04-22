@@ -4,6 +4,8 @@ qh.component('game', function(ngm, qhm) {
 		"game.factory.ai", 
 	function($scope, ai) {
 		var Player = function() {
+			var scope = this;
+			this.idx = -1;
 			this.colour = "#ccc";
 			this.reset = function() {
 				angular.forEach(this.programs, function(program) {
@@ -15,6 +17,7 @@ qh.component('game', function(ngm, qhm) {
 				angular.forEach(this.programs, function(program) {
 					program.runAbilities();
 				});
+				this.update();
 			};
 
 			this.programs = [];
@@ -28,12 +31,20 @@ qh.component('game', function(ngm, qhm) {
 
 			this.resource = 0;
 			this.update = function(map) {
-				scope.blocks = [];
-				map.iterateBlocks(function(block, x, y) {
-					if (block.ownership===scope) {
-						scope.blocks.push(block);
-						scope.resource++;
+				var scope = this;
+				this.blocks = [];
+				this.map.iterateBlocks(function(block, x, y) {
+					if (block.ownership) {
+						if (block.ownership.idx===scope.idx) {
+							scope.blocks.push(block);
+						}
 					}
+				});
+			};
+			this.resolveResources = function(map) {
+				var scope = this;
+				angular.forEach(scope.blocks, function(block) {
+					scope.resource++;
 				});
 			};
 		};
