@@ -3,6 +3,7 @@ qh.setModule("game", {
 		"grid",
 		"grid-block",
 		"maps",
+		"Map",
 		"units",
 		"players",
 		"abilities",
