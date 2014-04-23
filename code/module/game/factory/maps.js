@@ -99,7 +99,7 @@ qh.component('game', function(ngm, qhm) {
 				function() {
 					var player = instantiateHumanPlayer();
 					var map = new Map({
-						tier: 0, number: 1, label: "Bootstrap Camp", width: 8, height: 8,
+						tier: 0, number: 1, label: "Bootstrap Camp 1", width: 8, height: 8,
 						teams: [
 							player,
 							(function() {
@@ -161,6 +161,62 @@ qh.component('game', function(ngm, qhm) {
 
 					return map;
 				},
+				function() {
+					var player = instantiateHumanPlayer();
+					var map = new Map({
+						tier: 0, number: 2, label: "Bootstrap Camp 2", width: 8, height: 8,
+						teams: [
+							player,
+							(function() {
+								var p = players.instantiate("Simple");
+								p.colour = "#00f";
+								return p;
+							})(),
+						],
+						evaluateVictory: function() {
+							var scope = this;
+							// Player needs to claim 5 tiles and obtain 50 memory.
+							var totalBlocks = 3;
+							var totalMemory = 3;
+							scope.objectives.blocks = "";
+							scope.objectives.resource = "";
+							var team = scope.hci[0];
+							//angular.forEach(scope.hci, function(team) {
+								scope.objectives.blocks = "Blocks: "+team.blocks.length+"/"+totalBlocks;
+								scope.objectives.resource = "Calculations: "+team.resource+"/"+totalMemory;
+							//});
+							// Victory if enough blocks are claimed.
+							if (team.blocks.length>=totalBlocks && team.resource>=totalMemory) {
+								scope.setVictory();
+							}
+							// Defeat needs to be set
+							var ai = scope.ai[0];
+							if (ai.blocks.length>(scope.width*scope.height)-totalBlocks) {
+								scope.setDefeat("The AI has claimed too many blocks to make victory possible. Wipe and start again.");
+							}
+						},
+					});
+					map.intro.push(new help.HelpWindow({
+						content: {
+							header: map.number+": "+map.label,
+							body:"In this exercise, you will use your hard-earned resources to generate new claimer programs.",
+						},
+					}));
+					angular.forEach([
+						new Block(0,0),
+						new Block(7,7),
+					], function(block, idx) {
+						var team = map.teams[idx];
+						block.ownership = team;
+						block.structure;
+						block.setUnit(units.instantiate("Claimer"));
+						block.unit.team = team;
+						team.addProgram(block.unit);
+						map.setBlock(block);
+					});
+
+					return map;
+				},
 			],
 			getChosen: function() {
 				return obj.list[obj.chosen];
@@ -190,7 +246,7 @@ qh.component('game', function(ngm, qhm) {
 				//help.list[helpKey] = helpWindow;
 				previous = {obj:helpWindow, key:helpKey};
 			});
-			help.setChosen(map.intro[0]);
+			//help.setChosen(map.intro[0]);
 			angular.forEach(map.teams, function(team) {
 				team.update();
 			});

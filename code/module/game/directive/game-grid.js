@@ -8,9 +8,11 @@ qh.component('game', function(ngm, qhm) {
 				"$scope", 
 				"game.factory.maps", 
 				"game.factory.grid", 
-			function($scope, maps, grid) {
+				"game.factory.help-window", 
+			function($scope, maps, grid, help) {
 				$scope.blockSize = 50;
 				$scope.grid = maps.getChosen();
+				help.setChosen($scope.grid.intro[0]);
 				$scope.dimensions = {
 					width: $scope.grid.width * $scope.blockSize,
 					height: $scope.grid.height * $scope.blockSize,
