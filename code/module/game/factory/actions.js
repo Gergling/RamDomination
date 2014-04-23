@@ -11,10 +11,15 @@ qh.component('game', function(ngm, qhm) {
 			// - Blocks which can be moved to.
 			//this.instantiate = function() {};
 			//this.click = function(x1,y1,x2,y2) {};
+			this.options = [];
 			this.activate = function(block, map) {};
-			this.getOptions = function() {}; // List of blocks
+			this.getOptions = function() {return this.options;}; // List of blocks
 			this.complete = function(startBlock, endBlock) {};
-			this.cancel = function(block) {};
+			this.cancel = function(map) {
+				this.options = [];
+				grid.unhighlight(map);
+				grid.resetClick(map);
+			};
 			this.reset = function() {};
 			this.reset();
 			
@@ -103,6 +108,41 @@ qh.component('game', function(ngm, qhm) {
 							}
 						});
 					};
+				},
+				NewClaimer: function() {
+					var scope = this;
+					this.label = "Generate Claimer";
+					this.activate = function(block, map) {
+						// Starts creating a claimer unit.
+					};
+					this.complete = function(startBlock, endBlock) {
+						// This function will need to be split up into an animation and completion function.
+						this.options = [];
+						this.travelled = startBlock.getDistance(endBlock);
+						//endBlock.unit = startBlock.unit;
+						//startBlock.unit = undefined;
+						endBlock.setUnit(startBlock.unit);
+						startBlock.clearUnit();
+						this.update();
+					};
+					/*this.cancel = function(map) {
+						this.options = [];
+						grid.unhighlight(map);
+						grid.resetClick(map);
+					};*/
+					/*this.reset = function() {
+						this.travelled = 0;
+						this.update();
+					};*/
+					/*this.update = function() {
+						// Should be run on completion, reset or anytime when the secondary properties need updating.
+						this.enabled = false;
+						angular.forEach(this.speed, function(speed) {
+							if (scope.travelled<speed) {
+								scope.enabled = true;
+							}
+						});
+					};*/
 				},
 			},
 		};

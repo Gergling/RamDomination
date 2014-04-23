@@ -76,6 +76,13 @@ qh.component('game', function(ngm, qhm) {
 						// Change the ownership of the block.
 					};
 				},
+				Factory: function() {
+					this.description = "Can manufacture claimers.";
+					this.label = "Factory";
+					this.setActions = function(unit) {
+						var action = unit.setAction("NewClaimer");
+					};
+				},
 			},
 		};
 		abilities.instantiate = function(name) {
