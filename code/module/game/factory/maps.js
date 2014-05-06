@@ -1,7 +1,7 @@
 qh.component('game', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'maps').getFullName(), [
 		"$rootScope", 
-		"game.factory.grid-block", 
+		"game.factory.Block", 
 		"game.factory.players", 
 		"game.factory.units", 
 		"game.factory.grid", 
@@ -172,6 +172,7 @@ qh.component('game', function(ngm, qhm) {
 				team.update();
 			});
 			map.evaluateVictory();
+			map.updateIsometric();
 		});
 		return obj;
 	}]);

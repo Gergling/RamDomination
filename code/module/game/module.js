@@ -1,7 +1,7 @@
 qh.setModule("game", {
 	factory: [
-		"grid",
-		"grid-block",
+		"grid", // Need to retire this or make it a clear utility.
+		"Block",
 		"maps",
 		"Map",
 		"units",

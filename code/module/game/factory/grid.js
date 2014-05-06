@@ -5,6 +5,7 @@ qh.component('game', function(ngm, qhm) {
 	function($scope) {
 		var obj = {
 			iterateBlocks: function(grid, fnc) {
+				console.error("Deprecated function game.factory.grid.iterateBlocks");
 				angular.forEach(grid, function(column, x) {
 					angular.forEach(column, function(block, y) {
 						if ((block.y || block.y===0) && block.y===(y*1)) {
@@ -14,24 +15,29 @@ qh.component('game', function(ngm, qhm) {
 				});
 			},
 			unhighlight: function(map) {
+				console.error("Deprecate function game.factory.grid.unhighlight: use from map object.");
 				obj.iterateBlocks(map.grid, function(block) {
 					block.unhighlight();
 				});
 			},
 			resetClick: function(map) {
+				console.error("Deprecate function game.factory.grid.resetClick: use from map object.");
 				obj.iterateBlocks(map.grid, function(block) {
 					block.clickAction = function() {};
 				});
 			},
 			unselect: function(map) {
+				console.error("Deprecate function game.factory.grid.unselect: use from map object.");
 				obj.iterateBlocks(map.grid, function(block) {
 					block.unselect();
 				});
 			},
 			select: function(map, x,y) {
+				console.error("Deprecate function game.factory.grid.resetClick: use from block object.");
 				map.grid[x][y].select();
 			},
 			setBlock: function(grid, block, override) {
+				console.error("Deprecate function game.factory.grid.resetClick: use from map object.");
 				var x = block.x;
 				var y = block.y;
 				if (!grid[x]) {grid[x] = {};}

@@ -1,5 +1,5 @@
 qh.component('game', function(ngm, qhm) {
-	ngm.factory(qhm.getComponent('factory', 'grid-block').getFullName(), [
+	ngm.factory(qhm.getComponent('factory', 'Block').getFullName(), [
 		"$rootScope", 
 	function($scope) {
 		var Block = function(x,y) {
@@ -10,6 +10,10 @@ qh.component('game', function(ngm, qhm) {
 			this.unit; // There may be a unit on this block.
 			this.colour = "#ccc";
 			this.map;
+			this.isometric = {
+				x: this.x+this.y,
+				y: this.y-this.x,
+			};
 
 			this.clickAction = function() {};
 

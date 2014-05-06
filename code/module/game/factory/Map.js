@@ -1,7 +1,7 @@
 qh.component('game', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'Map').getFullName(), [
 		"$rootScope", 
-		"game.factory.grid-block", 
+		"game.factory.Block", 
 		"game.factory.players", 
 		"game.factory.units", 
 		"game.factory.grid", 
@@ -10,6 +10,7 @@ qh.component('game', function(ngm, qhm) {
 		var Map = function(properties) {
 			var scope = this;
 			this.grid = {};
+			this.isometricOrder = [];
 			this.hci = [];
 			this.ai = [];
 			this.teams = [];
@@ -29,19 +30,6 @@ qh.component('game', function(ngm, qhm) {
 			this.objectives = {};
 			this.intro = [];
 
-			angular.forEach(properties, function(property, name){
-				scope[name] = property;
-			});
-			angular.forEach(this.teams, function(team, idx) {
-				if (team.hci) {
-					scope.hci.push(team);
-				} else {
-					scope.ai.push(team);
-				}
-				team.map = scope;
-				team.idx = idx;
-			});
-
 			this.applyHCITeams = function(fnc) {
 				angular.forEach(scope.hci, fnc);
 			};
@@ -57,23 +45,21 @@ qh.component('game', function(ngm, qhm) {
 				block.map = this;
 			};
 			this.iterateBlocks = function(fnc) {
-				return grid.iterateBlocks(this.grid, fnc);
+				//return grid.iterateBlocks(this.grid, fnc);
+				return angular.forEach(this.grid, function(column, x) {
+					return angular.forEach(column, function(block, y) {
+						if ((block.y || block.y===0) && block.y===(y*1)) {
+							fnc(block, x, y);
+						}
+					});
+				});
 			};
 			this.resolveResources = function() {
 				angular.forEach(scope.teams, function(team) {
 					team.resolveResources(scope);
 				});
 			};
-			
-			this.victoryMessage = new help.HelpWindow({
-				content: {header: "Victory",},
-			});
-			this.defeatMessage = new help.HelpWindow({
-				content: {
-					header: "Defeat",
-					body:"You've been defeated somehow.",
-				},
-			});
+
 			this.setVictory = function() {
 				help.setChosen(this.victoryMessage);
 				this.victoryMessage.openFunctions.push(help.fadeIn);
@@ -86,6 +72,47 @@ qh.component('game', function(ngm, qhm) {
 				this.defeatMessage.openFunctions.push(help.fadeIn);
 				this.defeatMessage.open();
 			};
+
+			// Using array sort to make isometric expression of blocks.
+			this.updateIsometric = function() {
+				this.isometricOrder.sort(function(a,b) {
+					return a.isometric.y-b.isometric.y;
+				});
+			};
+
+			// Copying properties
+			angular.forEach(properties, function(property, name){
+				scope[name] = property;
+			});
+			
+			// Categorising players
+			angular.forEach(this.teams, function(team, idx) {
+				if (team.hci) {
+					scope.hci.push(team);
+				} else {
+					scope.ai.push(team);
+				}
+				team.map = scope;
+				team.idx = idx;
+			});
+			
+			// Implementing isometric expression
+			this.iterateBlocks(function(block) {
+				this.isometricOrder.push(block);
+			});
+
+			// Victory message, should the player be successful, which they won't be, because they are only human.
+			this.victoryMessage = new help.HelpWindow({
+				content: {header: "Victory",},
+			});
+			
+			// Defeat message. Human players will be seeing this one a great deal, so it will need to be written to lift their spirits after their inevitable failure.
+			this.defeatMessage = new help.HelpWindow({
+				content: {
+					header: "Defeat",
+					body:"You've been defeated somehow.",
+				},
+			});
 		};
 		return Map;
 	}]);
