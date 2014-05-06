@@ -1,0 +1,12 @@
+<div 
+	class="isometric-block" 
+	data-ng-repeat="block in map.isometricOrder" 
+	style="
+		width:{{blockSize.width}}px;
+		height:{{blockSize.height}}px;
+		left:{{block.isometric.x*blockSize.width}}px;
+		top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
+	">
+	<div>
+	</div>
+</div>

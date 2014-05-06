@@ -41,8 +41,23 @@ qh.component('game', function(ngm, qhm) {
 				});
 			};
 			this.setBlock = function(block, override) {
-				grid.setBlock(this.grid, block, override);
+				var add = false;
+				var x = block.x;
+				var y = block.y;
+				if (!this.grid[x]) {
+					this.grid[x] = {};
+					add = true;
+				}
+				if (!this.grid[x][y]) {
+					add = true;
+				}
+				if (!this.grid[x][y] || override) {
+					this.grid[x][y] = block;
+				}
+
+				//grid.setBlock(this.grid, block, override);
 				block.map = this;
+				if (add) {this.isometricOrder.push(block);}
 			};
 			this.iterateBlocks = function(fnc) {
 				//return grid.iterateBlocks(this.grid, fnc);

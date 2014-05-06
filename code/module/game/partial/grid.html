@@ -95,27 +95,31 @@
 					</tr>
 				</table>
 			</div>
-			<div class="game-column game-panel game-grid" style="height:{{dimensions.height}}px;width:{{dimensions.width}}px;">
-				<div data-ng-repeat="row in grid.grid">
-					<div data-ng-repeat="block in row">
-						<div class="grid-block" 
-							data-ng-mouseover="hoverBlock(block.x,block.y)" 
-							data-ng-click="clickBlock(block.x,block.y)" 
-							style="
-								top:{{block.y*blockSize}}px;
-								left:{{block.x*blockSize}}px;
-								width:{{blockSize}}px;
-								height:{{blockSize}}px;
-								background-color:{{block.colour}};
-								border-color:{{block.borderColour}};
-							"
-						>
-							<div><!-- express passable -->
-							</div>
-							<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}"><!-- express ownership -->
-								<div class="structure"><!-- express structure -->
-									<div class="unit"><!-- express unit -->
-										{{block.unit.label}}
+			<div class="game-column">
+				<div grid-isometric class="game-panel grid-isometric game-grid">
+				</div>
+				<div class="game-panel game-grid" style="height:{{dimensions.height}}px;width:{{dimensions.width}}px;">
+					<div data-ng-repeat="row in grid.grid">
+						<div data-ng-repeat="block in row">
+							<div class="grid-block" 
+								data-ng-mouseover="hoverBlock(block.x,block.y)" 
+								data-ng-click="clickBlock(block.x,block.y)" 
+								style="
+									top:{{block.y*blockSize}}px;
+									left:{{block.x*blockSize}}px;
+									width:{{blockSize}}px;
+									height:{{blockSize}}px;
+									background-color:{{block.colour}};
+									border-color:{{block.borderColour}};
+								"
+							>
+								<div><!-- express passable -->
+								</div>
+								<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}"><!-- express ownership -->
+									<div class="structure"><!-- express structure -->
+										<div class="unit"><!-- express unit -->
+											{{block.unit.label}}
+										</div>
 									</div>
 								</div>
 							</div>

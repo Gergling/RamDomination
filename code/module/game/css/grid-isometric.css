@@ -1,0 +1,15 @@
+.grid-isometric.game-grid {position:relative;}
+.grid-isometric.game-grid .isometric-block {
+	position:absolute;
+	border:solid 1px black;
+}
+
+.grid-isometric.game-grid .isometric-block .ownership, 
+.grid-isometric.game-grid .isometric-block .program, 
+.grid-isometric.game-grid .isometric-block .unit {
+	position:absolute;
+	top:5px;
+	bottom:5px;
+	left:5px;
+	right:5px;
+}

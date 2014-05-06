@@ -13,6 +13,7 @@ qh.setModule("game", {
 	],
 	directive: [
 		"game-grid",
+		"grid-isometric",
 		"help-window",
 	],
 });
