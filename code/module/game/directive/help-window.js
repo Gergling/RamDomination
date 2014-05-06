@@ -13,7 +13,11 @@ qh.component('game', function(ngm, qhm) {
 			function($scope, $element, $attrs, help, maps) {
 				// Close/open functions
 				var bodyCurtain = help.getBodyCurtain();
-				$element.hide().addClass('help-window').addClass('modal');
+				$scope.$watch('$element.width', function() {
+					if ($element.width) {
+						$element.hide().addClass('help-window').addClass('modal');
+					}
+				});
 
 				$scope.message = "";
 				// Consider including partials instead
