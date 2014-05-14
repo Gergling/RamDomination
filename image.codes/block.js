@@ -3,6 +3,11 @@ var scope = this;
 this.width = 50;
 this.height = 100;
 
+var ow = this.width;
+var oh = 26;
+var qw = ow/4;
+var qh = oh/4;
+
 // New/Improved Platform
 var lt = new Point(0, qh);
 var tl = new Point(qw, 0);
