@@ -10,6 +10,7 @@ qh.component('game', function(ngm, qhm) {
 		var Map = function(properties) {
 			var scope = this;
 			this.grid = {};
+			this.bridges = {};
 			this.isometricOrder = [];
 			this.hci = [];
 			this.ai = [];
@@ -40,6 +41,15 @@ qh.component('game', function(ngm, qhm) {
 					team.reset();
 				});
 			};
+			this.hasBlock = function(x,y) {
+				if (!this.grid[x]) {return false;}
+				var block = this.grid[x][y];
+				if (!block) {return false;}
+				return ((block.y || block.y===0) && block.y===(y*1));
+			};
+			this.getBlock = function(x,y) {
+				return this.grid[x][y];
+			};
 			this.setBlock = function(block, override) {
 				var add = false;
 				var x = block.x;
@@ -63,9 +73,10 @@ qh.component('game', function(ngm, qhm) {
 				//return grid.iterateBlocks(this.grid, fnc);
 				return angular.forEach(this.grid, function(column, x) {
 					return angular.forEach(column, function(block, y) {
-						if ((block.y || block.y===0) && block.y===(y*1)) {
-							fnc(block, x, y);
-						}
+						//if ((block.y || block.y===0) && block.y===(y*1)) {
+							//fnc(block, x, y);
+						//}
+						fnc(block, x, y, ((block.y || block.y===0) && block.y===(y*1)));
 					});
 				});
 			};
@@ -94,6 +105,74 @@ qh.component('game', function(ngm, qhm) {
 					return a.isometric.y-b.isometric.y;
 				});
 			};
+
+			var Bridge = function(block1, block2) {
+				this.block1 = block1;
+				this.block2 = block2;
+				this.getKey = function() {
+					var key = [];
+					if (this.block1.x<this.block2.x) {
+						key.push(this.block1.x);
+						key.push(this.block1.y);
+						key.push(this.block2.x);
+						key.push(this.block2.y);
+					} else {
+						key.push(this.block2.x);
+						key.push(this.block2.y);
+						key.push(this.block1.x);
+						key.push(this.block1.y);
+					}
+					return key.join("-");
+				};
+				this.key = this.getKey();
+				this.isometric = {
+					x: (this.block1.isometric.x+this.block2.isometric.x)/2,
+					y: (this.block1.isometric.y+this.block2.isometric.y)/2,
+				};
+				this.bgPos = 0;
+				if (block1.y===block2.y) {
+					this.bgPos = -13;
+				}
+			};
+			
+			// Generate bridges according to adjacent blocks.
+			this.updateBridges = function() {
+				// Need a reliable method of notation for adjacency.
+				// We know that any two blocks can be compared for adjacency using the block.getDistance()==1 condition.
+				// If we iterate, we can store the previous block.
+				// The map could have a function to return all blocks adjacent to a block.
+				// Bridge locations could be stored with x1-y1-x2-y2, where x1<x2
+				this.iterateBlocks(function(block1, x, y, blockExists) {
+					if (blockExists) {
+						var blocks = scope.getAdjacentBlocks(block1, 1);
+						angular.forEach(blocks, function(block2) {
+							if (block1!==block2) {
+								var bridge = new Bridge(block1,block2);
+								if (!scope.bridges[bridge.key]) {
+									scope.bridges[bridge.key] = bridge;
+								}
+							}
+						});
+					}
+				});
+			};
+			
+			this.getAdjacentBlocks = function(block, distance) {
+				var blocks = [];
+				for(var dx=-distance;dx<=distance;dx++) {
+					var bx = block.x+dx;
+					for(var dy=-distance+Math.abs(dx);dy<=distance-Math.abs(dx);dy++) {
+						var by = block.y+dy;
+						if (block.x!==bx||block.y!==by) {
+							if (this.hasBlock(bx,by)) {
+								blocks.push(this.getBlock(bx,by));
+							}
+						}
+					}
+				}
+				return blocks;
+			};
+			
 
 			// Copying properties
 			angular.forEach(properties, function(property, name){

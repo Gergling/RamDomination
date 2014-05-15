@@ -20,7 +20,8 @@ qh.component('game', function(ngm, qhm) {
 				function() {
 					var player = instantiateHumanPlayer();
 					var map = new Map({
-						tier: 0, number: 1, label: "Bootstrap Camp 1", width: 8, height: 8,
+						tier: 0, number: 1, label: "Bootstrap Camp 1", 
+						width: 8, height: 8,
 						teams: [
 							player,
 							(function() {
@@ -66,7 +67,7 @@ qh.component('game', function(ngm, qhm) {
 					}));
 					angular.forEach([
 						new Block(0,0),
-						new Block(7,7),
+						new Block(map.width-1,map.height-1),
 					], function(block, idx) {
 						var team = map.teams[idx];
 						block.ownership = team;
@@ -173,6 +174,7 @@ qh.component('game', function(ngm, qhm) {
 			});
 			map.evaluateVictory();
 			map.updateIsometric();
+			map.updateBridges();
 		});
 		return obj;
 	}]);

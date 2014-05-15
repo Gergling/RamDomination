@@ -1,6 +1,7 @@
 .grid-isometric.game-grid {
 	position:relative;
 	background-color:#112;
+	overflow:hidden;
 }
 .grid-isometric.game-grid .isometric-block {
 	position:absolute;
@@ -23,4 +24,19 @@
 	bottom:5px;
 	left:5px;
 	right:5px;
+}
+
+.grid-isometric.game-grid .isometric-bridge {
+	position:absolute;
+	/*border:solid 1px black;*/
+/*}
+.grid-isometric.game-grid .isometric-bridge .bg-image {*/
+	position:absolute;
+	background-image:url(../images/block-isometric-bridge.png);
+	background-repeat:no-repeat;
+	/*top:0;
+	left:0;
+	right:0;
+	height:100px;*/
+	overflow:hidden;
 }

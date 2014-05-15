@@ -4,9 +4,20 @@
 	style="
 		width:{{blockSize.width}}px;
 		height:{{blockSize.height}}px;
-		left:{{block.isometric.x*blockSize.width}}px;
+		left:{{(block.isometric.x*blockSize.width)+offsets.left}}px;
 		top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
 	">
-	<div class="bg-image">
-	</div>
+	<div class="bg-image"></div>
+</div>
+
+<div 
+	class="isometric-bridge" 
+	data-ng-repeat="bridge in map.bridges" 
+	style="
+		width:{{bridgeSize.width}}px;
+		height:{{bridgeSize.height/2}}px;
+		left:{{(bridge.isometric.x*blockSize.width)+offsets.left+(bridgeSize.width/2)}}px;
+		top:{{(bridge.isometric.y*blockSize.height)+offsets.top+(bridgeSize.height/4)}}px;
+		background-position-y:{{bridge.bgPos}}px;
+	">
 </div>

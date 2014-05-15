@@ -13,15 +13,19 @@ qh.component('game', function(ngm, qhm) {
 					width: 50,
 					height: 26, // 50*Math.sin(Math.PI*30/360)/Math.sin(Math.PI*60/360)
 				};
+				$scope.bridgeSize = {
+					width: 25,
+					height: 26,
+				};
 				$scope.map = maps.getChosen();
 				//console.log($scope.map);
 				$scope.dimensions = {
-					width: ($scope.map.width * $scope.blockSize.width * 2)-$scope.blockSize.width,
-					height: ($scope.map.height * $scope.blockSize.height * 2)-$scope.blockSize.height,
+					width: ($scope.map.width * $scope.blockSize.width * 2)+$scope.blockSize.width,
+					height: ($scope.map.height * $scope.blockSize.height * 2)+$scope.blockSize.height,
 				};
 				$scope.offsets = {
-					left: 0,
-					top: ($scope.map.height * $scope.blockSize.height)-($scope.blockSize.height),
+					left: $scope.blockSize.width,
+					top: ($scope.map.height * $scope.blockSize.height)/*-($scope.blockSize.height)*/,
 				};
 				$scope.$watch('$element.width', function() {
 					if ($element.width) {
