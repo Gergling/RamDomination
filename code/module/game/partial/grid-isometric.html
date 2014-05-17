@@ -1,23 +1,72 @@
-<div 
-	class="isometric-block" 
-	data-ng-repeat="block in map.isometricOrder" 
-	style="
-		width:{{blockSize.width}}px;
-		height:{{blockSize.height}}px;
-		left:{{(block.isometric.x*blockSize.width)+offsets.left}}px;
-		top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
-	">
-	<div class="bg-image"></div>
-</div>
+<div>
 
-<div 
-	class="isometric-bridge" 
-	data-ng-repeat="bridge in map.bridges" 
-	style="
-		width:{{bridgeSize.width}}px;
-		height:{{bridgeSize.height/2}}px;
-		left:{{(bridge.isometric.x*blockSize.width)+offsets.left+(bridgeSize.width/2)}}px;
-		top:{{(bridge.isometric.y*blockSize.height)+offsets.top+(bridgeSize.height/4)}}px;
-		background-position-y:{{bridge.bgPos}}px;
-	">
+	<div 
+		class="isometric-block" 
+		data-ng-repeat="block in map.isometricOrder" 
+		style="
+			width:{{blockSize.width}}px;
+			height:{{blockSize.height}}px;
+			left:{{(block.isometric.x*blockSize.width)+offsets.left}}px;
+			top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
+		">
+		<div class="bg-image"></div>
+		<!--<div class="ownership" data-ng-show="block.ownership">
+			<div class="ownership-v" data-ng-style="{'background-color':block.ownership.colour}">
+			</div>
+			<div class="ownership-h" data-ng-style="{'background-color':block.ownership.colour}">
+			</div>
+			<div class="ownership-claimed">
+			</div>
+		</div>-->
+		<!--<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}">
+			<div class="structure">
+				<div class="unit">
+					{{block.unit.label}}
+				</div>
+			</div>
+		</div>-->
+
+	</div>
+
+	<div 
+		class="isometric-bridge" 
+		data-ng-repeat="bridge in map.bridges" 
+		style="
+			width:{{bridgeSize.width}}px;
+			height:{{bridgeSize.height/2}}px;
+			left:{{(bridge.isometric.x*blockSize.width)+offsets.left+(bridgeSize.width/2)}}px;
+			top:{{(bridge.isometric.y*blockSize.height)+offsets.top+(bridgeSize.height/4)}}px;
+			background-position-y:{{bridge.bgPos}}px;
+		">
+	</div>
+
+	<div 
+		class="isometric-ownership-container"
+		data-ng-repeat="block in map.isometricOrder" 
+		style="
+			position:absolute;
+			width:{{blockSize.width}}px;
+			height:{{blockSize.height}}px;
+			left:{{(block.isometric.x*blockSize.width)+offsets.left}}px;
+			top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
+		">
+		<div class="ownership" data-ng-show="block.ownership"><!-- express ownership -->
+			<div class="ownership-v" data-ng-style="{'background-color':block.ownership.colour}">
+			</div>
+			<div class="ownership-h" data-ng-style="{'background-color':block.ownership.colour}">
+			</div>
+			<div class="ownership-claimed">
+			</div>
+		</div>
+		<!--<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}">
+			<div class="structure">
+				<div class="unit">
+					{{block.unit.label}}
+				</div>
+			</div>
+		</div>-->
+
+	</div>
+
+
 </div>
