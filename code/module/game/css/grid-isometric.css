@@ -17,31 +17,31 @@
 	right:0;
 	height:100px;
 }
-.grid-isometric.game-grid .isometric-ownership-container .ownership {
+.grid-isometric.game-grid .ownership {
 	position:absolute;
 	top:-14px;
 	bottom:0;
 	left:0;
 	right:0;
 }
-.grid-isometric.game-grid .isometric-ownership-container .ownership .ownership-claimed,
-.grid-isometric.game-grid .isometric-ownership-container .ownership .ownership-v,
-.grid-isometric.game-grid .isometric-ownership-container .ownership .ownership-h {
+.grid-isometric.game-grid .ownership .ownership-claimed,
+.grid-isometric.game-grid .ownership .ownership-v,
+.grid-isometric.game-grid .ownership .ownership-h {
 	position:absolute;
 	top:0;
 	bottom:0;
 	left:0;
 	right:0;
 }
-.grid-isometric.game-grid .isometric-ownership-container .ownership .ownership-v {
+.grid-isometric.game-grid .ownership .ownership-v {
 	left:10px;
 	right:12px;
 }
-.grid-isometric.game-grid .isometric-ownership-container .ownership .ownership-h {
+.grid-isometric.game-grid .ownership .ownership-h {
 	top:10px;
 	bottom:10px;
 }
-.grid-isometric.game-grid .isometric-ownership-container .ownership .ownership-claimed {
+.grid-isometric.game-grid .ownership .ownership-claimed {
 	background-image:url(../images/block-isometric-claimed.png);
 	background-repeat:no-repeat;
 }

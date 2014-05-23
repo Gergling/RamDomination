@@ -27,6 +27,7 @@ qh.component('game', function(ngm, qhm) {
 					left: $scope.blockSize.width,
 					top: ($scope.map.height * $scope.blockSize.height)/*-($scope.blockSize.height)*/,
 				};
+				$scope.unclaimedColour = 'white';
 				$scope.$watch('$element.width', function() {
 					if ($element.width) {
 						$element.width($scope.dimensions.width);
