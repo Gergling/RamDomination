@@ -69,6 +69,7 @@ qh.component('game', function(ngm, qhm) {
 				Claimer: function() {
 					this.description = "Claims the current square for the owner when moved there";
 					this.label = "Claimer";
+					this.img = "module/game/images/ability-claimer.png";
 					// Needs a way to run this at the end of the player's turn.
 					this.run = function() {
 						this.unit.block.ownership = this.unit.team;
