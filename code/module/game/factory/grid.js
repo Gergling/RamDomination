@@ -45,7 +45,30 @@ qh.component('game', function(ngm, qhm) {
 					grid[x][y] = block;
 				}
 			},
+			/*text: {
+				update: function() {
+					angular.forEach(["select", "hover"], function(property) {
+						angular.forEach(obj.text[property], function(text) {
+							text.value = block[text.name];
+						});
+					});
+				},
+			},*/
+			block: {
+				hover: null,
+				select: null,
+			},
+			//$scope.selectedBlock = {};
 		};
+		/*angular.forEach(["select", "hover"], function(property) {
+			obj.text[property] = {
+				x:{name:"x", label:"X"},
+				y:{name:"y", label:"Y"},
+				ownership:{name:"ownership", label:"Ownership"},
+				structure:{name:"structure", label:"Structure"},
+				unit:{name:"unit", label:"Unit"},
+			};
+		});*/
 		return obj;
 	}]);
 });
