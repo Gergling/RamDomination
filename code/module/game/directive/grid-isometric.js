@@ -41,12 +41,7 @@ qh.component('game', function(ngm, qhm) {
 					var block = $scope.map.getBlock(x,y);
 					block.clickAction();
 					
-					/*$scope.selectedBlock = block;
-					angular.forEach($scope.selectText, function(text) {
-						text.value = block[text.name];
-					});*/
 					grid.block.select = block;
-					console.log(block);
 
 					$scope.map.unselect();
 					$scope.map.select(x,y);
