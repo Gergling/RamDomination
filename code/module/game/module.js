@@ -15,5 +15,6 @@ qh.setModule("game", {
 		"game-grid",
 		"grid-isometric",
 		"help-window",
+		"action-panel",
 	],
 });
