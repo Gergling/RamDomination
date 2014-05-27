@@ -8,7 +8,8 @@ qh.component('game', function(ngm, qhm) {
 				"$scope", 
 				"$element", 
 				"game.factory.maps", 
-			function($scope, $element, maps) {
+				"game.factory.grid", 
+			function($scope, $element, maps, grid) {
 				$scope.blockSize = {
 					width: 50,
 					height: 26, // 50*Math.sin(Math.PI*30/360)/Math.sin(Math.PI*60/360)
@@ -34,6 +35,28 @@ qh.component('game', function(ngm, qhm) {
 						$element.height($scope.dimensions.height);
 					}
 				});
+				
+				$scope.clickBlock = function(x,y) {
+					//var previousBlock = $scope.selectedBlock;
+					var block = $scope.map.getBlock(x,y);
+					block.clickAction();
+					
+					/*$scope.selectedBlock = block;
+					angular.forEach($scope.selectText, function(text) {
+						text.value = block[text.name];
+					});*/
+					grid.block.select = block;
+					console.log(block);
+
+					$scope.map.unselect();
+					$scope.map.select(x,y);
+				};
+				$scope.hoverBlock = function(x,y) {
+					var block = $scope.grid.grid[x][y];
+					angular.forEach($scope.hoverText, function(text) {
+						text.value = block[text.name];
+					});
+				};
 			}],
 		};
 	});
