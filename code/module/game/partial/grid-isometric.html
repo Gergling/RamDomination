@@ -8,14 +8,22 @@
 			height:{{blockSize.height}}px;
 			left:{{(block.isometric.x*blockSize.width)+offsets.left}}px;
 			top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
-		">
+		"
+		data-ng-click="clickBlock(block.x,block.y)"
+		>
 		<div class="bg-image"></div>
 		<div class="ownership">
-			<div class="ownership-v" data-ng-style="{'background-color':block.ownership.colour||unclaimedColour}">
+			<div class="ownership-v" style="background-color:{{block.ownership.colour||unclaimedColour}};">
 			</div>
-			<div class="ownership-h" data-ng-style="{'background-color':block.ownership.colour||unclaimedColour}">
+			<div class="ownership-h" style="background-color:{{block.ownership.colour||unclaimedColour}};">
 			</div>
 			<div class="ownership-claimed">
+				<div class="structure">
+				</div>
+				<div class="unit-colour" style="background-color:{{block.unit.team.colour||'transparent'}};">
+				</div>
+				<div data-ng-show="block.unit" class="unit" style="background-image:url({{block.unit.img}});">
+				</div>
 			</div>
 		</div>
 		<!--<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}">
