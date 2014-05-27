@@ -106,6 +106,15 @@ qh.component('game', function(ngm, qhm) {
 				});
 			};
 
+			this.unselect = function() {
+				this.iterateBlocks(function(block, x, y, blockExists) {
+					if (blockExists) {block.unselect();}
+				});
+			};
+			this.select = function(x,y) {
+				this.getBlock(x,y).select();
+			};
+
 			var Bridge = function(block1, block2) {
 				this.block1 = block1;
 				this.block2 = block2;
