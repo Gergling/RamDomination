@@ -15,7 +15,7 @@ qh.component('game', function(ngm, qhm) {
 				var bodyCurtain = help.getBodyCurtain();
 				$scope.$watch('$element.width', function() {
 					if ($element.width) {
-						$element.hide().addClass('help-window').addClass('modal');
+						$element.hide().addClass('help-window');
 					}
 				});
 
