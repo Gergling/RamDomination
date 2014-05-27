@@ -1,0 +1,19 @@
+.action-panel .content {
+	border: 1px solid #ddd;
+	border-top:0;
+	padding:10px;
+	height:350px;
+}
+
+.action-panel .content.misc .player {
+	overflow:auto;
+	height:20px;
+}
+.action-panel .content.misc .player .player-item {
+	float:left;
+}
+.action-panel .content.misc .player .player-item.player-colour {
+	margin:5px;
+	padding:5px;
+}
+
