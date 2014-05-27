@@ -48,10 +48,21 @@
 .grid-isometric.game-grid .isometric-block .program, 
 .grid-isometric.game-grid .isometric-block .unit {
 	position:absolute;
-	top:5px;
-	bottom:5px;
-	left:5px;
-	right:5px;
+	top:-10px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+}
+.grid-isometric.game-grid .ownership .ownership-claimed .unit-colour {
+	top: 6px;
+	bottom: 22px;
+	left: 21px;
+	right: 21px;
+	position: absolute;
+}
+.grid-isometric.game-grid .ownership .ownership-claimed .unit {
+	background-repeat:no-repeat;
+	background-position:50%;
 }
 
 .grid-isometric.game-grid .isometric-bridge {

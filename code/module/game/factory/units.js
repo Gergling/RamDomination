@@ -12,6 +12,7 @@ qh.component('game', function(ngm, qhm) {
 			this.block;
 			this.integrity = 1;
 			this.label = "";
+			this.img = "";
 			this.abilities = {};
 			this.addAbility = function(name) {
 				if (!this.abilities[name]) {
@@ -76,6 +77,8 @@ qh.component('game', function(ngm, qhm) {
 					// These allow the unit to move across claimed and unclaimed blocks.
 					this.addAbility("Mobile");
 					this.addAbility("Explorer");
+					
+					this.img = "module/game/images/sprite-claimer.png";
 				},
 			},
 		};
