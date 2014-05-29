@@ -16,24 +16,28 @@
 		
 	</div>
 	<div class="content program" data-ng-show="content=='program'">
-		Abilities
-		<div class="program-operations">
-			<div class="program-operation" 
-				data-ng-repeat="ability in grid.block.select.unit.abilities" 
-				title="{{ability.label}}: {{ability.description}}"
-				style="background-image:url({{ability.img}});"
-			>
+		<div data-ng-show="grid.block.select.unit.abilities">
+			Abilities
+			<div class="program-operations">
+				<div class="program-operation" 
+					data-ng-repeat="ability in grid.block.select.unit.abilities" 
+					title="{{ability.label}}: {{ability.description}}"
+					style="background-image:url({{ability.img}});"
+				>
+				</div>
 			</div>
 		</div>
-		Actions
-		<div class="program-operations" data-ng-show="grid.block.select.unit.team.hci">
-			<div class="program-operation" 
-				data-ng-repeat="action in grid.block.select.unit.actions" 
-				title="{{action.label}}"
-				data-ng-click="action.activate(grid.block.select, map)"
-				data-ng-class="{disabled:!action.enabled}"
-				style="background-image:url({{action.img}});"
-			>
+		<div data-ng-show="grid.block.select.unit.actions && grid.block.select.unit.team.hci">
+			Actions
+			<div class="program-operations">
+				<div class="program-operation" 
+					data-ng-repeat="action in grid.block.select.unit.actions" 
+					title="{{action.label}}"
+					data-ng-click="action.activate(grid.block.select, map)"
+					data-ng-class="{disabled:!action.enabled}"
+					style="background-image:url({{action.img}});"
+				>
+				</div>
 			</div>
 		</div>
 	</div>
