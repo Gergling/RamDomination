@@ -30,6 +30,7 @@ qh.component('game', function(ngm, qhm) {
 				Move: function() {
 					var scope = this;
 					this.label = "Move";
+					this.img = "module/game/images/action-move.png";
 					this.speed = {
 						claimed: 0,
 						unclaimed: 0,

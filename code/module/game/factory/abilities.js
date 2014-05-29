@@ -41,6 +41,7 @@ qh.component('game', function(ngm, qhm) {
 				Mobile: function() {
 					this.label = "Mobile";
 					this.description = "Can move into adjacent claimed blocks";
+					this.img = "module/game/images/ability-mobile.png";
 					this.setActions = function() {
 						var action = this.unit.setAction("Move");
 						action.speed.claimed++;
@@ -49,6 +50,7 @@ qh.component('game', function(ngm, qhm) {
 				Explorer: function() {
 					this.description = "Can move into adjacent unclaimed blocks";
 					this.label = "Explorer";
+					this.img = "module/game/images/ability-explorer.png";
 					this.setActions = function(unit) {
 						var action = unit.setAction("Move");
 						action.speed.unclaimed++;
