@@ -24,6 +24,20 @@
 	left:0;
 	right:0;
 }
+.grid-isometric.game-grid .ownership.selected .selected-back,
+.grid-isometric.game-grid .ownership.selected .selected-front {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	height:26px;
+}
+.grid-isometric.game-grid .ownership.selected .selected-back {
+	background-image:url(../images/block-select-back.png);
+}
+.grid-isometric.game-grid .ownership.selected .selected-front {
+	background-image:url(../images/block-select-front.png);
+}
 .grid-isometric.game-grid .ownership .ownership-claimed,
 .grid-isometric.game-grid .ownership .ownership-v,
 .grid-isometric.game-grid .ownership .ownership-h {

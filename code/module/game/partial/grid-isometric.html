@@ -10,9 +10,9 @@
 			top:{{(block.isometric.y*blockSize.height)+offsets.top}}px;
 		"
 		data-ng-click="clickBlock(block.x,block.y)"
-		>
+	>
 		<div class="bg-image"></div>
-		<div class="ownership">
+		<div class="ownership" data-ng-class="{selected:block.selected}">
 			<div class="ownership-v" style="background-color:{{block.ownership.colour||unclaimedColour}};">
 			</div>
 			<div class="ownership-h" style="background-color:{{block.ownership.colour||unclaimedColour}};">
@@ -22,9 +22,11 @@
 				</div>
 				<div class="unit-colour" style="background-color:{{block.unit.team.colour||'transparent'}};">
 				</div>
+				<div class="selected-back"></div>
 				<div data-ng-show="block.unit" class="unit" style="background-image:url({{block.unit.img}});">
 				</div>
 			</div>
+			<div class="selected-front"></div>
 		</div>
 
 	</div>
