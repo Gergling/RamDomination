@@ -1,7 +1,8 @@
 qh.component('game', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'Player').getFullName(), [
 		"$rootScope", 
-	function($scope) {
+		"game.factory.Capacitor", 
+	function($scope, Capacitor) {
 		return function() {
 			var scope = this;
 			this.idx = -1;
@@ -28,7 +29,8 @@ qh.component('game', function(ngm, qhm) {
 
 			this.blocks = [];
 
-			this.resource = 0;
+			this.memory = 0;
+			this.garbageCollector = new Capacitor();
 			this.update = function(map) {
 				var scope = this;
 				this.blocks = [];
@@ -40,11 +42,21 @@ qh.component('game', function(ngm, qhm) {
 					}
 				});
 			};
-			this.resolveResources = function(map) {
+			this.resolveResources = function() {
 				var scope = this;
+				this.memory = -this.garbageCollector.getCurrent();
+				
+				// 1 for each block
 				angular.forEach(scope.blocks, function(block) {
-					scope.resource++;
+					scope.memory++;
 				});
+				
+				this.garbageCollector.setMax(scope.memory);
+			};
+			
+			this.garbageCollect = function() {
+				// Todo: Calculate change from owned units with garbage collection ability.
+				this.garbageCollector.changeCurrent(-1).limit();
 			};
 		};
 	}]);

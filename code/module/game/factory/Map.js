@@ -82,7 +82,12 @@ qh.component('game', function(ngm, qhm) {
 			};
 			this.resolveResources = function() {
 				angular.forEach(scope.teams, function(team) {
-					team.resolveResources(scope);
+					team.resolveResources();
+				});
+			};
+			this.garbageCollection = function() {
+				angular.forEach(scope.teams, function(team) {
+					team.garbageCollect();
 				});
 			};
 
@@ -216,6 +221,22 @@ qh.component('game', function(ngm, qhm) {
 					body:"You've been defeated somehow.",
 				},
 			});
+			
+			this.cycleCPU = function() {
+				// Reset all the player abilities.
+				this.applyHCITeams(function(team) {
+					team.runAbilities();
+					team.reset();
+				});
+				this.resolveResources();
+				this.garbageCollection();
+				
+				this.evaluateVictory();
+
+				// Kick off all the AI moves.
+				this.runAI();
+				// Everything needs to come back around to being controllable by the|a player.
+			};
 		};
 		return Map;
 	}]);

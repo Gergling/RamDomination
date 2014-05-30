@@ -3,14 +3,26 @@
 		<li data-ng-repeat="nav in navs" data-ng-class="{active:nav.active}"><a data-ng-click="nav.select()"><span class="glyphicon {{nav.icon}}"></span></a></li>
 	</ul>
 	<div class="content misc" data-ng-show="content=='misc'">
+		<div class="">
+			<center>{{map.label}}</center>
+		</div>
 		<div class="player" data-ng-repeat="player in map.teams">
 			<div class="player-item player-colour" style="background-color:{{player.colour}};"></div>
 			<div class="player-item player-blocks">
 				{{player.blocks.length}}
 			</div>
+			<div class="player-item player-memory" data-ng-show="player.hci">
+				{{player.memory}}
+				{{player.garbageCollector.current}}
+			</div>
 			<div class="player-item player-ai">
 			</div>
 		</div>
+		<ul class="objectives">
+			<li class="objective" data-ng-repeat="objective in map.objectives">
+				{{objective}}
+			</li>
+		</ul>
 	</div>
 	<div class="content static" data-ng-show="content=='static'">
 		
@@ -39,6 +51,12 @@
 				>
 				</div>
 			</div>
+		</div>
+	</div>
+	
+	<div class="">
+		<div class="btn-group">
+			<button class="btn" data-ng-click="map.cycleCPU()">Cycle CPU</button>
 		</div>
 	</div>
 </div>

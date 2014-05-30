@@ -11,6 +11,7 @@ qh.setModule("game", {
 		"actions",
 		"ai",
 		"help-window",
+		"Capacitor",
 	],
 	directive: [
 		"game-grid",
