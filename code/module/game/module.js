@@ -6,6 +6,7 @@ qh.setModule("game", {
 		"Map",
 		"units",
 		"players",
+		"Player",
 		"abilities",
 		"actions",
 		"ai",
