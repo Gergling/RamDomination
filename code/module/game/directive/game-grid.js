@@ -50,20 +50,6 @@ qh.component('game', function(ngm, qhm) {
 				};
 				// Make select keep a block somewhere. Grid is already in scope.
 				
-				$scope.cycle = function() {
-					// Reset all the player abilities.
-					$scope.grid.applyHCITeams(function(team) {
-						team.runAbilities();
-						team.reset();
-					});
-					$scope.grid.resolveResources();
-					
-					$scope.grid.evaluateVictory();
-
-					// Kick off all the AI moves.
-					$scope.grid.runAI();
-					// Everything needs to come back around to being controllable by the|a player.
-				};
 			}],
 		};
 	});
