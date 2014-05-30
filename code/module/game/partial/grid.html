@@ -99,7 +99,7 @@
 			<div class="game-column">
 				<div grid-isometric class="game-panel grid-isometric game-grid">
 				</div>
-				<div class="game-panel game-grid" style="height:{{dimensions.height}}px;width:{{dimensions.width}}px;">
+				<!--<div class="game-panel game-grid" style="height:{{dimensions.height}}px;width:{{dimensions.width}}px;">
 					<div data-ng-repeat="row in grid.grid">
 						<div data-ng-repeat="block in row">
 							<div class="grid-block" 
@@ -114,11 +114,11 @@
 									border-color:{{block.borderColour}};
 								"
 							>
-								<div><!-- express passable -->
+								<div>
 								</div>
-								<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}"><!-- express ownership -->
-									<div class="structure"><!-- express structure -->
-										<div class="unit"><!-- express unit -->
+								<div class="ownership" data-ng-style="{'background-color':block.ownership.colour}">
+									<div class="structure">
+										<div class="unit">
 											{{block.unit.label}}
 										</div>
 									</div>
@@ -126,9 +126,9 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 			</div>
-			<div class="game-column game-panel game-controls">
+			<!--<div class="game-column game-panel game-controls">
 				<h5>Objectives</h5>
 				<ul>
 					<li data-ng-repeat="objective in grid.objectives">{{objective}}</li>
@@ -156,7 +156,7 @@
 						<td>{{hoverText.unit.value.label}}</td>
 					</tr>
 				</table>
-			</div>
+			</div>-->
 		</div>
 	</div>
 </div>
