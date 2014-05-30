@@ -97,17 +97,17 @@ qh.component('game', function(ngm, qhm) {
 						evaluateVictory: function() {
 							var scope = this;
 							// Player needs to claim 5 tiles and obtain 50 memory.
-							var totalBlocks = 3;
-							var totalMemory = 3;
+							var totalBlocks = 10;
+							var totalMemory = 30;
 							scope.objectives.blocks = "";
 							scope.objectives.resource = "";
 							var team = scope.hci[0];
 							//angular.forEach(scope.hci, function(team) {
 								scope.objectives.blocks = "Blocks: "+team.blocks.length+"/"+totalBlocks;
-								scope.objectives.resource = "Calculations: "+team.resource+"/"+totalMemory;
+								scope.objectives.resource = "Memory: "+team.memory+"/"+totalMemory;
 							//});
 							// Victory if enough blocks are claimed.
-							if (team.blocks.length>=totalBlocks && team.resource>=totalMemory) {
+							if (team.blocks.length>=totalBlocks && team.memory>=totalMemory) {
 								scope.setVictory();
 							}
 							// Defeat needs to be set
