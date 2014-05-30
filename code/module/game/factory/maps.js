@@ -43,7 +43,7 @@ qh.component('game', function(ngm, qhm) {
 								scope.objectives.resource = "Memory: "+team.memory+"/"+totalMemory;
 							//});
 							// Victory if enough blocks are claimed.
-							if (team.blocks.length>=totalBlocks && team.resource>=totalMemory) {
+							if (team.blocks.length>=totalBlocks && team.memory>=totalMemory) {
 								scope.setVictory();
 							}
 							// Defeat needs to be set
@@ -53,18 +53,17 @@ qh.component('game', function(ngm, qhm) {
 							}
 						},
 					});
-					map.intro.push(new help.HelpWindow({
-						content: {
-							header: map.number+": "+map.label,
-							body:"Your first exercise is going to be under controlled conditions. This is so that I can confirm you are reasonably operational. I can wipe the drive when you're done.",
-						},
-					}));
-					map.intro.push(new help.HelpWindow({
-						content: {
-							header: map.number+": "+map.label,
-							body:"And here is another page of stuff.",
-						},
-					}));
+					var tutorial = [];
+					tutorial.push({body:"Your first exercise is going to be under controlled conditions. This is so that I can confirm you are reasonably operational. I can wipe the drive when you're done."});
+					tutorial.push({body:"You need to meet the objectives listed in the Memory panel. To do this you will need to move the Claimer program into adjacent unclaimed blocks. Every time the CPU cycles, the Claimer will take control of the block for you."});
+					angular.forEach(tutorial, function(content, idx) {
+						map.intro.push(new help.HelpWindow({
+							content: {
+								header: map.number+": "+map.label+" (Page "+[idx+1, "of", tutorial.length].join(" ")+")",
+								body: content.body,
+							}
+						}));
+					});
 					angular.forEach([
 						new Block(0,0),
 						new Block(map.width-1,map.height-1),

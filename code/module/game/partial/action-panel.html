@@ -6,6 +6,7 @@
 		<div class="">
 			<center>{{map.label}}</center>
 		</div>
+		Entities:
 		<div class="player" data-ng-repeat="player in map.teams">
 			<div class="player-item player-colour" style="background-color:{{player.colour}};"></div>
 			<div class="player-item player-blocks">
@@ -18,6 +19,7 @@
 			<div class="player-item player-ai">
 			</div>
 		</div>
+		Objectives:
 		<ul class="objectives">
 			<li class="objective" data-ng-repeat="objective in map.objectives">
 				{{objective}}
@@ -28,6 +30,12 @@
 		
 	</div>
 	<div class="content program" data-ng-show="content=='program'">
+		<div data-ng-show="grid.block.select.structure">
+			<center>Static Program</center>
+		</div>
+		<div data-ng-show="grid.block.select.unit">
+			<center>Program: {{grid.block.select.unit.label}}</center>
+		</div>
 		<div data-ng-show="grid.block.select.unit.abilities">
 			Abilities
 			<div class="program-operations">
