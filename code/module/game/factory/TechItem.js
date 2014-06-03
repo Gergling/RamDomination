@@ -9,7 +9,11 @@ qh.component('game', function(ngm, qhm) {
 			this.max = 1;
 			this.parent;
 			this.children = [];
+			this.getName = function() {
+				return this.name;
+			};
 			this.setParent = function(tech) {
+				this.parent = tech;
 				tech.addChild(this);
 			};
 			this.addChild = function(tech) {

@@ -1,0 +1,7 @@
+<div class="tech-node">
+	{{node.name}}
+	{{node.level}} / {{node.max}}
+	<div data-ng-repeat="child in node.children">
+		<div data-ng-include="wrapper"></div>
+	</div>
+</div>

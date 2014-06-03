@@ -1,0 +1,20 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="col-xs-2">
+			<div data-ng-repeat="tech in techs">
+				<a href="{{tech.url}}">{{tech.name}}</a>
+			</div>
+		</div>
+		<div class="col-xs-10">
+			<div>
+				<a href="{{tech.parent.url}}">{{tech.parent.name}}</a>
+			</div>
+			<div>
+				<a href="{{tech.url}}">{{tech.name}}</a>
+			</div>
+			<div data-ng-repeat="child in tech.children">
+				<a href="{{child.url}}">{{child.name}}</a>
+			</div>
+		</div>
+	</div>
+</div>

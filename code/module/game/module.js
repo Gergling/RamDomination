@@ -12,11 +12,15 @@ qh.setModule("game", {
 		"ai",
 		"help-window",
 		"Capacitor",
+		"techtree",
+		"TechItem",
 	],
 	directive: [
 		"game-grid",
 		"grid-isometric",
 		"help-window",
 		"action-panel",
+		"tech-tree-node",
+		"tech-tree",
 	],
 });

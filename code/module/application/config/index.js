@@ -3,6 +3,8 @@ qh.getModule('application').config([
 	function($routeProvider, navigation) {
 		$routeProvider.when('/', {templateUrl: 'module/application/partial/dashboard.html'});
 		$routeProvider.when('/play/:map/', {templateUrl: 'module/game/partial/play.html',});
+		$routeProvider.when('/tech/', {templateUrl: 'module/game/partial/tech-tree-full.html',});
+		$routeProvider.when('/tech/:tech/', {templateUrl: 'module/game/partial/tech-tree-full.html',});
 		/*navigation.loopRoutes(function(route) {
 			$routeProvider.when(route.route, route);
 		});*/

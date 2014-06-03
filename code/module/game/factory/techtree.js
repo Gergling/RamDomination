@@ -2,7 +2,7 @@ qh.component('game', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'techtree').getFullName(), [
 		"$rootScope", 
 		"object.factory.inherit", 
-		"object.factory.TechItem", 
+		"game.factory.TechItem", 
 	function($scope, inherit, Technology) {
 		var config = {
 			"Factory":"",
@@ -32,12 +32,23 @@ qh.component('game', function(ngm, qhm) {
 					return 1;
 				}
 			},
+			getNode: function(name) {
+				return techs[name];
+			},
+			chosen: "Destructor",
+			setChosen: function(name) {
+				techtree.chosen = name;
+			},
+			getChosen: function() {
+				return techs[techtree.chosen];
+			},
 		};
 
 		// Build structure
 		jQuery.each(config, function(name) {
 			techs[name] = new Technology();
 			techs[name].name = name;
+			techs[name].url = ["#", "tech", name].join("/");
 		});
 		angular.forEach(techs, function(tech) {
 			techtree.techs.push(tech);
@@ -50,7 +61,11 @@ qh.component('game', function(ngm, qhm) {
 				parentName = data;
 			}
 			var parent = techs[parentName];
-			tech.setParent(parent);
+			if (parent) {
+				tech.setParent(parent);
+			} else {
+				techtree.root = tech;
+			}
 		});
 
 		return techtree;
