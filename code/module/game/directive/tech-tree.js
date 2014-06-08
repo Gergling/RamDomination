@@ -11,6 +11,10 @@ qh.component('game', function(ngm, qhm) {
 			function($scope, $attrs, techtree) {
 				$scope.tech = techtree.getChosen();
 				$scope.techs = techtree.techs;
+				$scope.azlist = {};
+				angular.forEach($scope.techs, function(tech) {
+					$scope.azlist[tech.name] = tech;
+				});
 			}],
 		};
 	});
