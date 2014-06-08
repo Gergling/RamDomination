@@ -1,18 +1,21 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="col-xs-2">
-			<div data-ng-repeat="tech in techs">
-				<a href="{{tech.url}}">{{tech.name}}</a>
+			<div class="well">
+				<div data-ng-repeat="tech in azlist">
+					<a href="{{tech.url}}">{{tech.name}}</a>
+				</div>
 			</div>
 		</div>
 		<div class="col-xs-10">
-			<div>
+			<div class="well">
+				<span data-ng-hide="tech.parent">{{tech.name}} is a root technology.</span>
 				<a href="{{tech.parent.url}}">{{tech.parent.name}}</a>
 			</div>
-			<div>
+			<div class="well">
 				<a href="{{tech.url}}">{{tech.name}}</a>
 			</div>
-			<div data-ng-repeat="child in tech.children">
+			<div class="well" data-ng-repeat="child in tech.children">
 				<a href="{{child.url}}">{{child.name}}</a>
 			</div>
 		</div>

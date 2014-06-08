@@ -9,6 +9,7 @@ qh.component('game', function(ngm, qhm) {
 			this.max = 1;
 			this.parent;
 			this.children = [];
+			this.ability;
 			this.getName = function() {
 				return this.name;
 			};
