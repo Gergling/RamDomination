@@ -3,7 +3,8 @@ qh.component('game', function(ngm, qhm) {
 		"$rootScope", 
 		"object.factory.inherit", 
 		"game.factory.TechItem", 
-	function($scope, inherit, Technology) {
+		"game.factory.abilities", 
+	function($scope, inherit, Technology, abilities) {
 		var config = {
 			"Factory":"",
 			"Infiltrator":"Factory",
@@ -65,6 +66,9 @@ qh.component('game', function(ngm, qhm) {
 				tech.setParent(parent);
 			} else {
 				techtree.root = tech;
+			}
+			if (abilities.options[name]) {
+				tech.ability = new abilities.options[name];
 			}
 		});
 
